@@ -209,3 +209,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Matlab extension only allows .m exclude .mlx
+.mlx
