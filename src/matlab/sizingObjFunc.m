@@ -43,11 +43,16 @@ function diff = sizingObjFunc(TOGW_temp, inputs)
 
       % Aircraft Takeoff Gross Weight Weight (TOGW) [lbs]: Wempty+Wpayload+Wfuel  
       TOGW      = EmptyWeightOutput.We + inputs.PayloadInputs.w_payload + Wfuel;  
-
-      % Compute convergence criteria & set-up for next iteration
+      
+      % Since we cannot have these variables passed outside of this functions (black-box) so 
+      % we will save the necessary values into a structure and export that as a JSON file 
+      % The JSON file will then be open and read by the SizingIterations.m file which will 
+      % extract the necessary variables
       placeholder.Wfuel = Wfuel;
       placeholder.inputs = inputs;
       placeholder.EmptyWeightOutput = EmptyWeightOutput;
       saveJSONfile(placeholder, "temp.json");
+
+      % Compute convergence criteria & set-up for next iteration
       diff      = abs(TOGW_temp - TOGW);
 end
