@@ -26,21 +26,21 @@ MissionInputs.pax         = 301;     % number of passengers
 EconMission.range         = 9420;    % economic mission length [nmi]
 
 %% PERFORMANCE PARAMETERS
-PerformanceInputs.TW   = 0.28;     % thrust-to-weight ratio [lb/lb]
-PerformanceInputs.WS   = 142;        % wing loading [lbs/ft^2]
-PerformanceInputs.V    = 480;       % cruise velocity [knots]
-PerformanceInputs.M    = 0.82;     % cruise velocity [Mach]. This needs to be changed to match V at desired altitude.  Can automate this calculation with the AtmosphereFunction
-PerformanceInputs.Vlt  = 200;       % loiter velocity [knots]
-PerformanceInputs.nmax = 3;      % maximum load factor
-PerformanceInputs.hc   = 38000;     % cruise altitude [ft]
-PerformanceInputs.hlt  = 5000;      % loiter altitude [ft]
+PerformanceInputs.TW   = 0.28;  % thrust-to-weight ratio [lb/lb]
+PerformanceInputs.WS   = 142;   % wing loading [lbs/ft^2]
+PerformanceInputs.V    = 480;   % cruise velocity [knots]
+PerformanceInputs.M    = 0.82;  % cruise velocity [Mach]. This needs to be changed to match V at desired altitude.  Can automate this calculation with the AtmosphereFunction
+PerformanceInputs.Vlt  = 200;   % loiter velocity [knots]
+PerformanceInputs.nmax = 3;     % maximum load factor
+PerformanceInputs.hc   = 38000; % cruise altitude [ft]
+PerformanceInputs.hlt  = 5000;  % loiter altitude [ft]
 
 %% GEOMETRY PARAMETERS
-GeometryInputs.AR          = 8.7;         % wing aspect ratio
-GeometryInputs.WingSweep   = 31.6;          % wing sweep, Lambda (LE) [deg]
-GeometryInputs.thick2chord = 0.12;       % wing thickness-to-chord ratio
-GeometryInputs.TR          = 0.3;        % wing taper ratio
-GeometryInputs.FinessRatio = 11;		 % fuselage finess ratio
+GeometryInputs.AR          = 8.7;  % wing aspect ratio
+GeometryInputs.WingSweep   = 31.6; % wing sweep, Lambda (LE) [deg]
+GeometryInputs.thick2chord = 0.12; % wing thickness-to-chord ratio
+GeometryInputs.TR          = 0.3;  % wing taper ratio
+GeometryInputs.FinessRatio = 11;   % fuselage finess ratio
         
 %% CONFIGURATION PARAMETERS
 % These parameters and their default values are listed in the LayoutFunction.m file
@@ -49,9 +49,9 @@ GeometryInputs.FinessRatio = 11;		 % fuselage finess ratio
 AeroInputs.Clmax   = 1.6;                % maximum lift coefficient
 
 %% PROPULSION PARAMETERS
-PropulsionInputs.num_eng    = 2;          % number of engines
-PropulsionInputs.SFCc        = 0.50;       % Specific Fuel Consumption @ cruise
-PropulsionInputs.SFCl        = 0.40;       % Specific Fuel Consumption @ loiter
+PropulsionInputs.num_eng = 2;    % number of engines
+PropulsionInputs.SFCc    = 0.50; % Specific Fuel Consumption @ cruise
+PropulsionInputs.SFCl    = 0.40; % Specific Fuel Consumption @ loiter
 %PropulsionInputs.BPR         = 15          % Engine-Bypass Ratio
 
 %% PAYLOAD PARAMETERS

@@ -26,4 +26,4 @@ fprintf('%s \n','------------------------------------          ')
 % fprintf('%s%6.0f%s \n','Operating Cost (DOC+I): $   ',inputs.OpCostOutput.DOC_BH,' /BH')
 
 % Save structure as JSON file 
-saveJSONfile(inputs, 'output.json')
+%saveJSONfile(inputs, 'output.json')

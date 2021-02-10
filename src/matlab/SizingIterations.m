@@ -19,60 +19,21 @@ function FinalOutput = SizingIterations(inputs)
 
 %% Start Aircraft Sizing Iterations
 TOGW_temp = 911000;        % guess of takeoff gross weight [lbs] 
-tolerance = 0.1;           % sizing tolerance [lbs]
-diff      = tolerance+1;   % initial tolerance gap [lbs]
 
-while diff > tolerance
-  inputs.Sizing.Thrust     = TOGW_temp*inputs.PerformanceInputs.TW;  % compute total thrust (based on T/W)
-  inputs.Sizing.TOGW_temp  = TOGW_temp;                              % store initial gross weight
-  W0                       = TOGW_temp;                              % initial gross weight for current iteration
-  inputs.Sizing.W0         = W0;
-  %% Begin estimation of weight components (empty, fuel, and total weights)
+% Global optimization
+start = TOGW_temp;
+lb = 0; ub = TOGW_temp*10;
+A = []; b = [];
+Aeq = []; beq = [];
+options = optimoptions("patternsearch","MeshTolerance",1e-10,"FunctionTolerance",1e-10);
+objective = @(TOGW_temp) sizingObjFunc(TOGW_temp, inputs);
+[TOGW_temp, fval] = patternsearch(objective,start,A,b,Aeq,beq,lb,ub,options);
 
-  % Generate internal layout data
-  inputs.LayoutOutput   = LayoutFunction(inputs);
-
-  % Generate geometry data
-  inputs.GeometryOutput = GeometryFunction(inputs); 
-  % Compute Empty weight and empty weight fraction
-  EmptyWeightOutput     = EmptyWeightFunction(inputs);  
-  
-  %%
-  % Warm-up and Takeoff segment fuel weight fraction
-  WarmupTakeoffOutput = WarmupTakeoffFunction(inputs);
-  f_to                = WarmupTakeoffOutput.f_to;   % warm-up and takeoff fuel weight fraction
-  W1                  = TOGW_temp*f_to;             % aircraft weight after warm-up and takeoff [lbs]
-  % Climb segment fuel weight fraction
-  ClimbOutput         = ClimbFunction(inputs);
-  f_cl                = ClimbOutput.f_cl;           % climb fuel weight fraction
-  W2                  = W1*f_cl;                    % aircraft weight after climb segment [lbs]
-  % Cruise segment fuel weight fraction
-  CruiseOutput        = CruiseFunction(inputs,W2);
-  f_cr                = CruiseOutput.f_cr;          % cruise fuel weight fraction
-  W3                  = W2*f_cr;                    % aircraft weight after cruise segment [lbs]
-  % Loiter segment fuel weight fraction
-  LoiterOutput        = LoiterFunction(inputs,W3);
-  f_lt                = LoiterOutput.f_lt;          % loiter fuel weight segment
-  W4                  = W3*f_lt;                    % aircraft weight after loiter segment [lbs]
-  % Landing and taxi fuel weight fraction
-  LandingTaxiOutput   = LandingTaxiFunction(inputs);
-  f_lnd               = LandingTaxiOutput.f_lnd;    % landing and taxi fuel weight segment
-  W5                  = W4*f_lnd;                   % aircraft weight after landing & taxi segment [lbs]
-
-  %% Compute new weights based on results of current iteration  
-  % Total fuel weight fraction (including trapped fuel of 5%)
-
-  FWF       = 1.01*(1- f_to*f_cl*f_cr*f_lt*f_lnd);  % Fuel weight fraction 
-  Wfuel     = FWF*TOGW_temp;                        % Total fuel weight [lbs] (Overestimates - used scaling factor)
-  
-  % Aircraft Takeoff Gross Weight Weight (TOGW) [lbs]: Wempty+Wpayload+Wfuel  
-  TOGW      = EmptyWeightOutput.We + inputs.PayloadInputs.w_payload + Wfuel;  
-  
-  % Compute convergence criteria & set-up for next iteration   
-  diff      = abs(TOGW_temp - TOGW);
-  TOGW_temp = TOGW;                  
-  TOGW      = 0; 
-end
+disp(fval);
+temp_struct = readJSON2struct("temp.json");
+EmptyWeightOutput = temp_struct.EmptyWeightOutput;
+Wfuel = temp_struct.Wfuel;
+inputs = temp_struct.inputs;
 
 % EmptyWeightOutput
 TOGW = TOGW_temp;                  % Aircraft takeoff gross weight [lbs]

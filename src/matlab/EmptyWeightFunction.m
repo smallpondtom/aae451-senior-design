@@ -8,18 +8,18 @@
 
 function output = EmptyWeightFunction(inputs)
 
-  AR        = inputs.GeometryInputs.AR;               % wing aspect ratio
-  TW        = inputs.PerformanceInputs.TW;            % thrust-to-weight ratio [lb/lb]
-  WS        = inputs.PerformanceInputs.WS;            % wing loading [lbs/ft^2]
-  Mmax      = 1.07*inputs.PerformanceInputs.M;        % Mmax = 5% higher than cruise mach 
-  W_dg      = inputs.Sizing.TOGW_temp;                % Design gross weight [lb]			
+    AR        = inputs.GeometryInputs.AR;               % wing aspect ratio
+    TW        = inputs.PerformanceInputs.TW;            % thrust-to-weight ratio [lb/lb]
+    WS        = inputs.PerformanceInputs.WS;            % wing loading [lbs/ft^2]
+    Mmax      = 1.07*inputs.PerformanceInputs.M;        % Mmax = 5% higher than cruise mach 
+    W_dg      = inputs.Sizing.TOGW_temp;                % Design gross weight [lb]			
 
 
-% Empty weight [lbs]
-% Raymer "jet transporter", Table 6.1
-% assumes fixed sweep
-  output.We = (0.32+0.66*W_dg^(-0.13)*AR^(0.30)*TW^(0.06)*WS^(-0.05)*Mmax^(0.05))*W_dg;  
-% Empty weight fraction
-  output.fe = output.We/inputs.Sizing.TOGW_temp; 
+    % Empty weight [lbs]
+    % Raymer "jet transporter", Table 6.1
+    % assumes fixed sweep
+    output.We = (0.32+0.66*W_dg^(-0.13)*AR^(0.30)*TW^(0.06)*WS^(-0.05)*Mmax^(0.05))*W_dg;  
+    % Empty weight fraction
+    output.fe = output.We/inputs.Sizing.TOGW_temp; 
 
 end
