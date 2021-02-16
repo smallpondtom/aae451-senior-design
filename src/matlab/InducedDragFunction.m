@@ -13,6 +13,7 @@ function [Cdi,CL] = InducedDragFunction(inputs,Wi)
 % Units conversion [knots -> ft/sec]
 
   v = V*1.68781;
+  
 % Atmosphere at loiter altitude (speed of sound, viscosity, density)
   [a,mu,rho] = AtmosphereFunction(h);
 

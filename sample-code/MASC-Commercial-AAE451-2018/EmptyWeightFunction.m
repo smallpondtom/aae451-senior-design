@@ -16,7 +16,7 @@ function output = EmptyWeightFunction(inputs)
 
 
 % Empty weight [lbs]
-%Raymer "jet transporter", Table 6.1
+% Raymer "jet transporter", Table 6.1
 % assumes fixed sweep
   output.We = (0.32+0.66*W_dg^(-0.13)*AR^(0.30)*TW^(0.06)*WS^(-0.05)*Mmax^(0.05))*W_dg;  
 % Empty weight fraction

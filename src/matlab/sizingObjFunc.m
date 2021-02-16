@@ -1,8 +1,22 @@
 function diff = sizingObjFunc(TOGW_temp, inputs)
+      
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      %{
+            This function was created by TOMO.
+            Objective function to be minimized for the patternsearch() of
+            the Global Optimization Toolbox.
+            
+            **Used in lines 22-29 in "SizingIterations.m"
+      
+      %}
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      
+      
       inputs.Sizing.Thrust     = TOGW_temp*inputs.PerformanceInputs.TW;  % compute total thrust (based on T/W)
       inputs.Sizing.TOGW_temp  = TOGW_temp;                              % store initial gross weight
       W0                       = TOGW_temp;                              % initial gross weight for current iteration
       inputs.Sizing.W0         = W0;
+      
       %% Begin estimation of weight components (empty, fuel, and total weights)
 
       % Generate internal layout data
@@ -44,6 +58,8 @@ function diff = sizingObjFunc(TOGW_temp, inputs)
       % Aircraft Takeoff Gross Weight Weight (TOGW) [lbs]: Wempty+Wpayload+Wfuel  
       TOGW      = EmptyWeightOutput.We + inputs.PayloadInputs.w_payload + Wfuel;  
       
+      % --->(MODIFIED) TOMO
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       % Since we cannot have these variables passed outside of this functions (black-box) so 
       % we will save the necessary values into a structure and export that as a JSON file 
       % The JSON file will then be open and read by the SizingIterations.m file which will 
@@ -52,6 +68,8 @@ function diff = sizingObjFunc(TOGW_temp, inputs)
       placeholder.inputs = inputs;
       placeholder.EmptyWeightOutput = EmptyWeightOutput;
       saveJSONfile(placeholder, "temp.json");
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      % <---(END)
 
       % Compute convergence criteria & set-up for next iteration
       diff      = abs(TOGW_temp - TOGW);

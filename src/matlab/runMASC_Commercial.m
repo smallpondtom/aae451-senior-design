@@ -23,7 +23,7 @@ MissionInputs.loiter_time = 0.5;     % loiter time [hours]
 MissionInputs.pax         = 301;     % number of passengers   
 
 %% ECONOMIC MISSION PARAMETERS
-EconMission.range         = 9420;    % economic mission length [nmi]
+%EconMission.range         = 9420;    % economic mission length [nmi]
 
 %% PERFORMANCE PARAMETERS
 PerformanceInputs.TW   = 0.28;  % thrust-to-weight ratio [lb/lb]
@@ -73,25 +73,27 @@ inputs.PropulsionInputs  = PropulsionInputs;
 inputs.AeroInputs        = AeroInputs;
 
 %% SIZE AIRCRAFT
-   SizingOutput = SizingIterations(inputs);
+SizingOutput = SizingIterations(inputs);
 
 %% ECONOMIC MISSION ANALYSIS
-   EconMissionOutput = EconMissionFunction(SizingOutput);
+%EconMissionOutput = EconMissionFunction(SizingOutput);
    
 %% PERFORMANCE ANALYSIS
-   PerformanceOutput = PerformanceFunction(SizingOutput);
+%PerformanceOutput = PerformanceFunction(SizingOutput);
    
 %% ACQUISITION COST ANALYSIS
-%    AqCostOutput = AcquisitionCostFunction(SizingOutput);
+%AqCostOutput = AcquisitionCostFunction(SizingOutput);
    
 %% OPERATING COST ANALYSIS  
-%    OpCostOutput = OperatingCostFunction(SizingOutput,AqCostOutput,EconMissionOutput);
+%OpCostOutput = OperatingCostFunction(SizingOutput,AqCostOutput,EconMissionOutput);
   
 %% DISPLAY RESULTS
-   FinalOutput              = SizingOutput;
-%    FinalOutput.AqCostOutput = AqCostOutput;
-%    FinalOutput.OpCostOutput = OpCostOutput;
-   ReportFunction(FinalOutput);
+FinalOutput              = SizingOutput;
+
+%FinalOutput.AqCostOutput = AqCostOutput;
+%FinalOutput.OpCostOutput = OpCostOutput;
+
+ReportFunction(FinalOutput);
 
 
 

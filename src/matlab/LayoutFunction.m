@@ -5,35 +5,37 @@
 
 function output = LayoutFunction(inputs)
 
-%% Inputs
-pax = inputs.MissionInputs.pax;
+    %% Inputs
+    pax = inputs.MissionInputs.pax;
 
-%% Aircraft layout inputs (mid-size passenger transport)
-crewnum          = 2;    % crew members (pilots)
+    %% Aircraft layout inputs (mid-size passenger transport)
+    crewnum          = 2;    % crew members (pilots)
 
-%% Aircraft fuselage dimensions & flight crew 
+    %% Aircraft fuselage dimensions & flight crew 
 
-% Fuselage Finess Ratio, lambda_fd
-lambda_f =inputs.GeometryInputs.FinessRatio;     % fuselage finess ratio
+    % Fuselage Finess Ratio, lambda_fd
+    lambda_f =inputs.GeometryInputs.FinessRatio;     % fuselage finess ratio
 
-% diameter of fuselage [ft]
-df = 20;                                       % aircraft fuselage diameter [ft]
+    % diameter of fuselage [ft]
+    df = 20;                                       % aircraft fuselage diameter [ft]
 
-% length of fuselage [ft]  
-lf = lambda_f*df;								% aircraft fuselage length [ft]
+    % length of fuselage [ft]  
+    lf = lambda_f*df;								% aircraft fuselage length [ft]
 
-% number of crew members (not including pilots) 
-flcrewnum   = 8;  % number of flight crew 
+    % number of crew members (not including pilots) 
+    flcrewnum   = 8;  % number of flight crew 
 
-%number of crew members (pilots and flight attendants)
-crew = crewnum + flcrewnum;  
+    %number of crew members (pilots and flight attendants)
+    crew = crewnum + flcrewnum;  
 
-%% Output compilation
-output.df     = df;
-output.lf     = lf;
-output.crew   = crew;
-output.pilots = crewnum;
-output.flcrew = flcrewnum;
+    %% Output compilation
+    output.df     = df;
+    output.lf     = lf;
+    output.crew   = crew;
+    output.pilots = crewnum;
+    output.flcrew = flcrewnum;
+
+end
 
 
         

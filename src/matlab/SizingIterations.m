@@ -17,9 +17,24 @@
 function FinalOutput = SizingIterations(inputs)
 
     %% Start Aircraft Sizing Iterations
+    
+    % --->(MODIFICATION REQUIRED) TOMO
+    % We need to estimate the TOGW_temp using the method in Raymer Ch.15 
+    % Page 404 for General Aviations to come up with a rough estimate of
+    % our aircraft. However we CANNOT use the equations directly. We MUST
+    % carefully calibrate the provided equations with idea of more closely
+    % matching new aircraft since the Raymer database is only for old
+    % aircraft.
+    
     TOGW_temp = 911000;        % guess of takeoff gross weight [lbs] 
-
+    
+    % <---(END)
+    
+    
+    % --->(MODIFIDE) TOMO
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Global optimization to optimize the gross weight
+    % Using the function "sizingObjFunc.m"
     start = TOGW_temp;
     lb = 0; ub = TOGW_temp*10;
     A = []; b = [];
@@ -38,6 +53,8 @@ function FinalOutput = SizingIterations(inputs)
     EmptyWeightOutput = temp_struct.EmptyWeightOutput;
     Wfuel = temp_struct.Wfuel;
     inputs = temp_struct.inputs;
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % <---(END OF MODIFICATION) 
 
     % EmptyWeightOutput
     TOGW = TOGW_temp;                  % Aircraft takeoff gross weight [lbs]

@@ -6,6 +6,14 @@
 % component weights                                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% <---(REQUIRE MODIFICATION) TOMO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{
+    WE MUST COME UP WITH A We/Wo function using Curve Fitting for existing 
+    aircrafts that are similar to ours.
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function output = EmptyWeightFunction(inputs)
 
     AR        = inputs.GeometryInputs.AR;               % wing aspect ratio
