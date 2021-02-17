@@ -16,11 +16,11 @@ function output = LayoutFunction(inputs)
     % Fuselage Finess Ratio, lambda_fd
     lambda_f =inputs.GeometryInputs.FinessRatio;     % fuselage finess ratio
 
-    % diameter of fuselage [ft]
-    df = 20;                                       % aircraft fuselage diameter [ft]
+    % diameter of fuselage [ft] -> [m]
+    df = imperial2metric(20,'ft');                  % aircraft fuselage diameter [ft] convert to [m]
 
-    % length of fuselage [ft]  
-    lf = lambda_f*df;								% aircraft fuselage length [ft]
+    % length of fuselage [ft] -> [m]  
+    lf = lambda_f*df;								% aircraft fuselage length [ft] convert to [m]
 
     % number of crew members (not including pilots) 
     flcrewnum   = 8;  % number of flight crew 

@@ -26,7 +26,7 @@ function FinalOutput = SizingIterations(inputs)
     % matching new aircraft since the Raymer database is only for old
     % aircraft.
     
-    TOGW_temp = 911000;        % guess of takeoff gross weight [lbs] 
+    TOGW_temp = imperial2metric(911000, 'lb');        % guess of takeoff gross weight [lbs] convert to [kg]
     
     % <---(END)
     

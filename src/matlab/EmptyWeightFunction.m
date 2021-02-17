@@ -6,7 +6,8 @@
 % component weights                                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% <---(REQUIRE MODIFICATION) TOMO
+% --->(MODIFICATION COMPLETED 2/16/2021) TOMO
+%  ---(WAITING FOR REVIEW)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %{
     WE MUST COME UP WITH A We/Wo function using Curve Fitting for existing 
@@ -14,20 +15,33 @@
 %}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% <---(END)
+
 function output = EmptyWeightFunction(inputs)
 
     AR        = inputs.GeometryInputs.AR;               % wing aspect ratio
-    TW        = inputs.PerformanceInputs.TW;            % thrust-to-weight ratio [lb/lb]
-    WS        = inputs.PerformanceInputs.WS;            % wing loading [lbs/ft^2]
-    Mmax      = 1.07*inputs.PerformanceInputs.M;        % Mmax = 5% higher than cruise mach 
-    W_dg      = inputs.Sizing.TOGW_temp;                % Design gross weight [lb]			
+    TW        = inputs.PerformanceInputs.TW;            % thrust-to-weight ratio [N/N]
+    WS        = inputs.PerformanceInputs.WS;            % wing loading [kg/m^2]
+    Vmax      = 1.07*inputs.PerformanceInputs.V;        % Vmax = 7% higher than cruise speed [m/s] 
+    W_dg      = inputs.Sizing.TOGW_temp;                % Design gross weight [kg]			
 
 
-    % Empty weight [lbs]
-    % Raymer "jet transporter", Table 6.1
-    % assumes fixed sweep
-    output.We = (0.32+0.66*W_dg^(-0.13)*AR^(0.30)*TW^(0.06)*WS^(-0.05)*Mmax^(0.05))*W_dg;  
+    % Empty weight [kg]
+    % Equation created by our own curve fitting 
+    % see file "wer_curve_fit.ipynb" in /src/python
+    
+    % Coefficients from the curve fit
+    a = -1.12552612;
+    b = 3;
+    c = -0.06556813;
+    d = 0.00409114;
+    e = -0.08426595;
+    f = 0.0272785;
+    g = -0.04872444;
+    
     % Empty weight fraction
-    output.fe = output.We/inputs.Sizing.TOGW_temp; 
+    output.fe = a + b*W_dg^c * AR^d * TW^e * WS^f * Vmax^g;  
+    % Empty weight
+    output.We = output.fe*inputs.Sizing.TOGW_temp; 
 
 end

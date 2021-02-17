@@ -1,24 +1,30 @@
-% FUNCTION THAT COMPUTES SPEED OF SOUND, DENSITY, VISCOSITY, AT ALTITUDE h
-  function [a,mu,rho] = AtmosphereFunction(h)
-  
-  Ts = 518.69;                % temperature (absolute) at sea-level [deg. R]
-  Ps = 2116.2;                % pressure at sea-level [lb/ft^2]
-  R= 1716;                    % gas-constant
-  Th = -0.00356;              % temperature gradient [deg/ft]
-  rhos = 0.00237691267925741; % sea-level air density [slug/ft^3]
-  g = 32.2;                   % gravitational constant
-  Pt = 472.7;
+% Function that computes the speed of sound, air density, pressure, and
+% temperature for a certain altitude in metric
 
-  if h < 36152
-      T = Ts + Th*(h-0);
-      P = Ps * (T/Ts)^(-g/(Th*R));
-      rho = P/(R*T);
-      mu = 0.3170 * (T^1.5) * (734.7/(T + 216)) * (10^(-10)); 
-      a = (1.4*R*T)^.5;
-  else
-      T = Ts + (Th * 36152);
-      P = Pt * exp((-g/(R*T))*(h-36152));
-      rho = P/(R*T);
-      mu = 0.3170 * (T^1.5) * (734.7/(T + 216)) * (10^(-10)); 
-      a = (1.4*R*T)^.5;
-  end
+function [a,rho,p,T] = AtmosphereFunction(h)
+    % http://fisicaatmo.at.fcen.uba.ar/practicas/ISAweb.pdf
+    % https://www.engineeringtoolbox.com/elevation-speed-sound-air-d_1534.html
+    p0   = 101325;
+    rho0 = 1.225;
+    T0   = 288.15;
+    a0   = 340.294;
+    g0   = 9.80665;
+    R    = 287.04;
+    
+    p11 = 22632;
+    T11 = 216.65;
+    h11 = 11000;
+    
+    if h < 11000  % troposphere
+        T = T0 - 6.5*h/1000;
+        p = p0*(1 - 0.0065*h/T0)^5.2561;
+    elseif h < 25000  % lower stratosphere
+        T = T11;
+        p = p11*exp(-g0*(h - h11)/(R*T11));
+    else
+        error('invalid altitude: ' + num2str(h));
+    end
+    rho = p/(R*T);
+    gamma = 1.4;
+    a = sqrt(gamma*R*T);
+end

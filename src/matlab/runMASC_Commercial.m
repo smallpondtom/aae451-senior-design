@@ -18,22 +18,27 @@
 clear all; close all; clc;
 
 %% DESIGN MISSION PARAMETERS
-MissionInputs.R           = 9420;    % aircraft range [nmi]
-MissionInputs.loiter_time = 0.5;     % loiter time [hours]
-MissionInputs.pax         = 301;     % number of passengers   
+MissionInputs.R           = imperial2metric(9420,'nmi');    % aircraft range [nmi] convert to [m]
+MissionInputs.loiter_time = 0.5*3600;                       % loiter time [hours] convert to [s]
+MissionInputs.pax         = 301;                            % number of passengers   
 
 %% ECONOMIC MISSION PARAMETERS
 %EconMission.range         = 9420;    % economic mission length [nmi]
 
 %% PERFORMANCE PARAMETERS
-PerformanceInputs.TW   = 0.28;  % thrust-to-weight ratio [lb/lb]
-PerformanceInputs.WS   = 142;   % wing loading [lbs/ft^2]
-PerformanceInputs.V    = 480;   % cruise velocity [knots]
-PerformanceInputs.M    = 0.82;  % cruise velocity [Mach]. This needs to be changed to match V at desired altitude.  Can automate this calculation with the AtmosphereFunction
-PerformanceInputs.Vlt  = 200;   % loiter velocity [knots]
-PerformanceInputs.nmax = 3;     % maximum load factor
-PerformanceInputs.hc   = 38000; % cruise altitude [ft]
-PerformanceInputs.hlt  = 5000;  % loiter altitude [ft]
+PerformanceInputs.TW   = 0.28;                                   % thrust-to-weight ratio [lb/lb] or [N/N]
+PerformanceInputs.WS   = imperial2metric(142,'lb/ft^2');         % wing loading [lbs/ft^2] convert to [kg/m^2]
+PerformanceInputs.V    = imperial2metric(480, 'knot');           % cruise velocity [knots] convert to [m/s]
+PerformanceInputs.Vlt  = imperial2metric(200, 'knot');           % loiter velocity [knots] convert to [m/s]
+PerformanceInputs.nmax = 3;                                      % maximum load factor
+PerformanceInputs.hc   = imperial2metric(38000, 'ft');           % cruise altitude [ft] convert to [m]
+PerformanceInputs.hlt  = imperial2metric(5000, 'ft');            % loiter altitude [ft] convert to [m]
+
+[PerformanceInputs.cruiseSpeedOfSound, temp1, temp2, temp3] = ...
+    AtmosphereFunction(PerformanceInputs.hc);                    % speed of sound at cruise altitude [m/s]
+
+PerformanceInputs.M    = ...
+    PerformanceInputs.V / PerformanceInputs.cruiseSpeedOfSound;  % cruise velocity [Mach]. 
 
 %% GEOMETRY PARAMETERS
 GeometryInputs.AR          = 8.7;  % wing aspect ratio
@@ -49,18 +54,18 @@ GeometryInputs.FinessRatio = 11;   % fuselage finess ratio
 AeroInputs.Clmax   = 1.6;                % maximum lift coefficient
 
 %% PROPULSION PARAMETERS
-PropulsionInputs.num_eng = 2;    % number of engines
-PropulsionInputs.SFCc    = 0.50; % Specific Fuel Consumption @ cruise
-PropulsionInputs.SFCl    = 0.40; % Specific Fuel Consumption @ loiter
+PropulsionInputs.num_eng = 2;               % number of engines
+PropulsionInputs.SFCc    = 0.50 / 3600;     % Specific Fuel Consumption @ cruise [1/hr] convert to [1/s]
+PropulsionInputs.SFCl    = 0.40 / 3600;     % Specific Fuel Consumption @ loiter [1/hr] convert to [1/s]
 %PropulsionInputs.BPR         = 15          % Engine-Bypass Ratio
 
 %% PAYLOAD PARAMETERS
 PayloadInputs.crewnum    = 4;          % number of crew members (pilots)
-PayloadInputs.paxweight  = 230;        % passenger weight (including luggage) [lbs]
-PayloadInputs.crewweight = 200;        % crew member weight (including luggage) [lbs]
+PayloadInputs.paxweight  = imperial2metric(230,'lb');        % passenger weight (including luggage) [lbs] convert 2 [kg]
+PayloadInputs.crewweight = imperial2metric(200,'lb');        % crew member weight (including luggage) [lbs] convert 2 [kg]
 
-paxweight  = PayloadInputs.paxweight.*MissionInputs.pax;      % weight of passengers (including luggage) [lbs]
-crewweight = PayloadInputs.crewweight*PayloadInputs.crewnum;  % weight of each crew member [lbs]
+paxweight  = PayloadInputs.paxweight.*MissionInputs.pax;      % weight of passengers (including luggage) [kg]
+crewweight = PayloadInputs.crewweight*PayloadInputs.crewnum;  % weight of each crew member [kg]
 PayloadInputs.w_payload  = crewweight + paxweight;            % total payload weight
 
 %% AGGREGATED INPUTS FOR AIRCRAFT SIZING

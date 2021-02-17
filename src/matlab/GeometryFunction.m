@@ -16,37 +16,38 @@
 function [output] = GeometryFunction(inputs)
 
     %% INPUTS
-    Wt          = inputs.Sizing.TOGW_temp;                 % Takeoff gross weight [lbs]
-    WingLoading = inputs.PerformanceInputs.WS;             % Wing loading [lbs/ft^2]
+    Wt          = inputs.Sizing.TOGW_temp;                 % Takeoff gross weight [lbs] converted to [kg]
+    WingLoading = inputs.PerformanceInputs.WS;             % Wing loading [lbs/ft^2] converted to [kg/m^2]
     M           = inputs.PerformanceInputs.M;              % Cruise mach number
     num_eng     = inputs.PropulsionInputs.num_eng;         % Number of engines
     T_eng       = inputs.PerformanceInputs.TW * Wt;        % Engine Thrust
 
     AR          = inputs.GeometryInputs.AR;                % Wing aspect ratio
     TR          = inputs.GeometryInputs.TR;                % Wing taper ratio
-    lf          = inputs.LayoutOutput.lf;                  % Fuselage length [ft]
-    df          = inputs.LayoutOutput.df;                  % Fuselage diameter [ft]
+    lf          = inputs.LayoutOutput.lf;                  % Fuselage length [ft] converted to [m]
+    df          = inputs.LayoutOutput.df;                  % Fuselage diameter [ft] converted to [m]
 
 
     %%
     %% Wing geometry computations (See Raymer Ch.7 Eq. 7.5-7.8)
-    Sw          = Wt/WingLoading;                          % Wing planform area [ft^2]
-    b           = sqrt(AR*Sw);                             % Wing span [ft]
+    Sw          = Wt/WingLoading;                          % Wing planform area [ft^2] converted to [m^2]
+    b           = sqrt(AR*Sw);                             % Wing span [ft] converted to [m]
     MAC         = ((1+TR+(TR^2))/(1+TR)^2)*(Sw/b)*(4/3);   % Mean aerodynamic chord of wing
 
     %  -->(MODIFIED) BY TOMO
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % From Raymer Ch.7 Eq. 7.10 & 7.11
+    
     TC          = inputs.GeometryInputs.thick2chord;
     if TC < 0.05
-        Swetwing    = 2.003*Sw;                            % Wing wetted area [ft^2]
+        Swetwing    = 2.003*Sw;                            % Wing wetted area [ft^2] converted to [m^2]
     else
         Swetwing    = Sw * [1.977 + 0.52 * TC];
     end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %  <--(END)
 
-    Swetwing    = 2*Sw*1.02;                               % Wing wetted area [ft^2] <-- Original 
+    % Swetwing    = 2*Sw*1.02;                               % Wing wetted area [ft^2] <-- Original 
 
     %%
     %% Internal parameters (Based on Raymer Ch.6 Table 6.4 Jet transport Page 112)
@@ -56,7 +57,7 @@ function [output] = GeometryFunction(inputs)
     %% Fuselage wetted computations
     % need to be checked for source
     fr          = inputs.GeometryInputs.FinessRatio;       % fuselage finess ratio
-    Swetfus     = pi*df*lf*(1-2/fr)^(2/3)*(1+1/fr^2);      % wetted area of fuselage [ft^2]
+    Swetfus     = pi*df*lf*(1-2/fr)^(2/3)*(1+1/fr^2);      % wetted area of fuselage [ft^2] converted to [m^2]
 
     %% Tails geometry computations (Based on Raymer Ch.6 Eq. 6.28-6.29)
 
@@ -69,12 +70,12 @@ function [output] = GeometryFunction(inputs)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END)
 
-    Lht         = H_loc*lf;                                % H-tail moment arm [ft]
-    Lvt         = V_loc*lf;                                % V-tail moment arm (for engines on wing) [ft]
-    Sv          = Cvt*b*Sw/Lvt;                            % V-tail surface area [ft^2]
-    Sh          = Cht*MAC*Sw/Lht;                          % H-tail surface area [ft^2]
-    Sweth       = 2*Sh*1.02;                               % H-tail wetted area [ft^2]
-    Swetv       = 2*Sv*1.02;                               % V-tail wetted area [ft^2]
+    Lht         = H_loc*lf;                                % H-tail moment arm [ft] converted to [m]
+    Lvt         = V_loc*lf;                                % V-tail moment arm (for engines on wing) [ft] converted to [m]
+    Sv          = Cvt*b*Sw/Lvt;                            % V-tail surface area [ft^2] converted to [m^2]
+    Sh          = Cht*MAC*Sw/Lht;                          % H-tail surface area [ft^2] converted to [m^2]
+    Sweth       = 2*Sh*1.02;                               % H-tail wetted area [ft^2] converted to [m^2]
+    Swetv       = 2*Sv*1.02;                               % V-tail wetted area [ft^2] converted to [m^2]
 
     %% Engine geometry computations (based on Raymer EQs 10.1-10.2)
 
@@ -83,21 +84,21 @@ function [output] = GeometryFunction(inputs)
     % Change the engines specifically for our design
 
     %Nonafterburning engines
-    Le_actual = 287/12;								% GE-90 engine length   [ft]
-    De_actual = 123/12;								% GE-90 engine diameter [ft]
-    T_actual = 115300;							    % GE-90 engine thrust @ takeoff [lb]
+    Le_actual = imperial2metric(287/12,'ft');		% GE-90 engine length   [ft] convert to [m]
+    De_actual = imperial2metric(123/12,'ft');		% GE-90 engine diameter [ft] convert to [m]
+    T_actual = imperial2metric(115300,'lb');		% GE-90 engine thrust @ takeoff [lb] convert to [kg]
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END)
 
     SF = T_actual/T_eng;	   						% engine scale factor (Actual Thrust/Req Thrust)
-    le = Le_actual*(SF)^0.4;                        % engine length [ft]
-    de = De_actual*(SF)^0.5;                        % engine diameter [ft]
+    le = Le_actual*(SF)^0.4;                        % engine length [ft] converted to [m]
+    de = De_actual*(SF)^0.5;                        % engine diameter [ft] converted to [m]
 
-    Sweteng     = pi*de*le*num_eng;                 % wetted area of engines [ft^2]
+    Sweteng     = pi*de*le*num_eng;                 % wetted area of engines [ft^2] converted to [m^2]
 
     %% Total wetted area computation
-    Swet        = Swetwing+Swetfus+Swetv+Sweth+Sweteng;    % total wetted area of aircraft [ft^2]
+    Swet        = Swetwing+Swetfus+Swetv+Sweth+Sweteng;    % total wetted area of aircraft [ft^2] converted to [m^2]
 
     %% Function Outputs
     output.b       = b;

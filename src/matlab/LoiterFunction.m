@@ -11,8 +11,8 @@
 function output = LoiterFunction(inputs,Wi)
 
     %% Inputs for loiter fuel computations
-    time   = inputs.MissionInputs.loiter_time;           % Loiter time [hours]
-    SFCl  = inputs.PropulsionInputs.SFCl;               % specific fuel consumption - loiter [lb/hr]
+    time   = inputs.MissionInputs.loiter_time;           % Loiter time [hours] converted to [s]
+    SFCl  = inputs.PropulsionInputs.SFCl;                % specific fuel consumption - loiter [1/hr] converted to [1/s]
     %%
     %% Parasite drag computation
 
@@ -29,10 +29,8 @@ function output = LoiterFunction(inputs,Wi)
     % <---(END)
 
     %% Additional inputs needed for cruise segment analysis
-    inputs.Aero.V = inputs.PerformanceInputs.Vlt;   % Loiter velocity [knots]
-    inputs.Aero.h = inputs.PerformanceInputs.hlt;   % Loiter altitude [ft]
-
-    V_ft_s =  inputs.Aero.V*1.68781;               % Loiter velocity [ft/s]
+    inputs.Aero.V = inputs.PerformanceInputs.Vlt;   % Loiter velocity [knots] converted to [m/s]
+    inputs.Aero.h = inputs.PerformanceInputs.hlt;   % Loiter altitude [ft] converted to [m]
 
     %% loiter fuel computation  
     [Cdi,CL]    = InducedDragFunction(inputs,Wi);  % induced drag and lift coefficients 
@@ -41,7 +39,7 @@ function output = LoiterFunction(inputs,Wi)
     fl          = exp(-time*(SFCl)/(LDrat));       % loiter fuel weight fraction
     Wf          = Wi*fl;                           % final aircraft weight after loiter segment
     output.f_lt = Wf/Wi;                           % loiter fuel-weight ratio (for entire segment)
-    output.fuel = Wi-Wf;                           % total loiter fuel [lbs]
+    output.fuel = Wi-Wf;                           % total loiter fuel [lbs] converted to [kg]
 end
 
 
