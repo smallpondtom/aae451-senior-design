@@ -39,7 +39,7 @@ function output = EmptyWeightFunction(inputs)
     f = 0.0272785;
     g = -0.04872444;
     
-    % Empty weight fraction
+    % Empty weight fraction We / Wo
     output.fe = a + b*W_dg^c * AR^d * TW^e * WS^f * Vmax^g;  
     % Empty weight
     output.We = output.fe*inputs.Sizing.TOGW_temp; 
