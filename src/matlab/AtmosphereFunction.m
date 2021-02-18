@@ -26,5 +26,5 @@ function [a,rho,p,T] = AtmosphereFunction(h)
     end
     rho = p/(R*T);
     gamma = 1.4;
-    a = sqrt(gamma*R*T);
+    a = sqrt(gamma*R*T);    % Speed of Sound Calculation
 end
