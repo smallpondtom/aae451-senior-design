@@ -31,7 +31,7 @@ function FinalOutput = SizingIterations(inputs)
     % <---(END)
     
     
-    % --->(MODIFIDE) TOMO
+    % --->(MODIFIED) TOMO
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Global optimization to optimize the gross weight
     % Using the function "sizingObjFunc.m"
