@@ -23,22 +23,26 @@ function [output] = GeometryFunction(inputs)
     T_eng       = inputs.PerformanceInputs.TW * Wt;        % Engine Thrust
 
     AR          = inputs.GeometryInputs.AR;                % Wing aspect ratio
+    AR_ht       = inputs.GeometryInputs.AR_ht;             % Horizontal tail aspect ratio
+    AR_vt       = inputs.GeometryInputs.AR_vt;             % Vertical tail aspect ratio
     TR          = inputs.GeometryInputs.TR;                % Wing taper ratio
+    TR_ht       = inputs.GeometryInputs.TR_ht;             % Horizontal tail taper ratio
+    TR_vt       = inputs.GeometryInputs.TR_vt;             % Vertical tail taper ratio
     lf          = inputs.LayoutOutput.lf;                  % Fuselage length [ft] converted to [m]
     df          = inputs.LayoutOutput.df;                  % Fuselage diameter [ft] converted to [m]
-
+    
 
     %%
     %% Wing geometry computations (See Raymer Ch.7 Eq. 7.5-7.8)
     Sw          = Wt/WingLoading;                          % Wing planform area [ft^2] converted to [m^2]
     b           = sqrt(AR*Sw);                             % Wing span [ft] converted to [m]
-    MAC         = ((1+TR+(TR^2))/(1+TR)^2)*(Sw/b)*(4/3);   % Mean aerodynamic chord of wing
+    MAC         = ((1+TR+(TR^2))/(1+TR)^2)*(Sw/b)*(4/3);   % Mean aerodynamic chord of wing [m]
 
-    %  -->(MODIFIED) BY TOMO
+    %  -->(MODIFIED) BY TOMO & DEREK
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % From Raymer Ch.7 Eq. 7.10 & 7.11
     
-    TC          = inputs.GeometryInputs.thick2chord;
+    TC          = inputs.GeometryInputs.thick2chord;       % Wing-thickness-to-chord ratio
     if TC < 0.05
         Swetwing    = 2.003*Sw;                            % Wing wetted area [ft^2] converted to [m^2]
     else
@@ -57,6 +61,7 @@ function [output] = GeometryFunction(inputs)
     %% Fuselage wetted computations
     % need to be checked for source
     fr          = inputs.GeometryInputs.FinessRatio;       % fuselage finess ratio
+
     Swetfus     = pi*df*lf*(1-2/fr)^(2/3)*(1+1/fr^2);      % wetted area of fuselage [ft^2] converted to [m^2]
 
     %% Tails geometry computations (Based on Raymer Ch.6 Eq. 6.28-6.29)
@@ -72,11 +77,25 @@ function [output] = GeometryFunction(inputs)
 
     Lht         = H_loc*lf;                                % H-tail moment arm [ft] converted to [m]
     Lvt         = V_loc*lf;                                % V-tail moment arm (for engines on wing) [ft] converted to [m]
-    Sv          = Cvt*b*Sw/Lvt;                            % V-tail surface area [ft^2] converted to [m^2]
-    Sh          = Cht*MAC*Sw/Lht;                          % H-tail surface area [ft^2] converted to [m^2]
+    Sv          = Cvt*b*Sw/Lvt;                            % V-tail planform area [ft^2] converted to [m^2]
+    Sh          = Cht*MAC*Sw/Lht;                          % H-tail planform area [ft^2] converted to [m^2]
     Sweth       = 2*Sh*1.02;                               % H-tail wetted area [ft^2] converted to [m^2]
     Swetv       = 2*Sv*1.02;                               % V-tail wetted area [ft^2] converted to [m^2]
+    
+    % --->(REQUIRE MODIFICATION) DEREK 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    %% Horizontal tail mean chord calculation
+    b_ht        = sqrt(AR_ht * Sh);                                     % Calculate horizontal tail span [m]
+    MC_ht       = ((1+TR_ht+(TR_ht^2))/((1+TR_ht)^2))*(Sh/b_ht)*(4/3);  % Calculate horizontal tail mean chord length [m]
 
+    %% Vertical tail mean chord calculation
+    b_vt        = sqrt(AR_vt * Sv);                                     % Calculate vertical tail span [m]
+    MC_vt       = ((1+TR_vt+(TR_vt^2))/((1+TR_vt)^2))*(Sv/b_vt)*(4/3);  % Calculate vertical tail mean chord length [m]
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % <---(END)
+    
     %% Engine geometry computations (based on Raymer EQs 10.1-10.2)
 
     % --->(REQUIRE MODIFICATION) TOMO
@@ -106,9 +125,17 @@ function [output] = GeometryFunction(inputs)
     output.Sv      = Sv;
     output.Sh      = Sh;
     output.Sw      = Sw;
+    output.Sf      = Sf;
     output.Swetfus = Swetfus;
     output.Sweteng = Sweteng;
+    output.Swetwing= Swetwing;
+    output.Sweth   = Sweth;
+    output.Swetv   = Swetv; 
     output.Swet    = Swet;
+    output.b_ht    = b_ht;
+    output.b_vt    = b_vt;
+    output.MC_ht   = MC_ht;
+    output.MC_vt   = MC_vt;
 end
 
 
