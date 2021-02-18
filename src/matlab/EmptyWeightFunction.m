@@ -31,13 +31,13 @@ function output = EmptyWeightFunction(inputs)
     % see file "wer_curve_fit.ipynb" in /src/python
     
     % Coefficients from the curve fit
-    a = -1.12552612;
+    a = -0.93406157;
     b = 3;
-    c = -0.06556813;
-    d = 0.00409114;
-    e = -0.08426595;
-    f = 0.0272785;
-    g = -0.04872444;
+    c = -0.07269635;
+    d = 0.00401527;
+    e = -0.09722277;
+    f = 0.0290933;
+    g = -0.05112156;
     
     % Empty weight fraction
     output.fe = a + b*W_dg^c * AR^d * TW^e * WS^f * Vmax^g;  
