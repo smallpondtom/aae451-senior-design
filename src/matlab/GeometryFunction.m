@@ -30,7 +30,8 @@ function [output] = GeometryFunction(inputs)
     TR_vt       = inputs.GeometryInputs.TR_vt;             % Vertical tail taper ratio
     lf          = inputs.LayoutOutput.lf;                  % Fuselage length [ft] converted to [m]
     df          = inputs.LayoutOutput.df;                  % Fuselage diameter [ft] converted to [m]
-    
+    ln          = inputs.GeometryInputs.L_nacel;           % Nacelle length [m]
+    dn          = inputs.GeometryInputs.D_nacel;           % Nacelle diameter [m]
 
     %%
     %% Wing geometry computations (See Raymer Ch.7 Eq. 7.5-7.8)
@@ -64,6 +65,14 @@ function [output] = GeometryFunction(inputs)
 
     Swetfus     = pi*df*lf*(1-2/fr)^(2/3)*(1+1/fr^2);      % wetted area of fuselage [ft^2] converted to [m^2]
 
+    % --->(REQUIRE MODIFICATION) DEREK
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% Nacelle wetted computations
+    
+    Swetn       = pi * dn * ln;                            % nacelle wetted area [m^2]
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
     %% Tails geometry computations (Based on Raymer Ch.6 Eq. 6.28-6.29)
 
     % --->(REQUIRE MODIFICATION) TOMO 
@@ -117,7 +126,7 @@ function [output] = GeometryFunction(inputs)
     Sweteng     = pi*de*le*num_eng;                 % wetted area of engines [ft^2] converted to [m^2]
 
     %% Total wetted area computation
-    Swet        = Swetwing+Swetfus+Swetv+Sweth+Sweteng;    % total wetted area of aircraft [ft^2] converted to [m^2]
+    Swet        = Swetwing+Swetfus+Swetv+Sweth+Sweteng+Swetn;    % total wetted area of aircraft [ft^2] converted to [m^2] (add 
 
     %% Function Outputs
     output.b       = b;
@@ -131,6 +140,7 @@ function [output] = GeometryFunction(inputs)
     output.Swetwing= Swetwing;
     output.Sweth   = Sweth;
     output.Swetv   = Swetv; 
+    output.Swetn   = Swetn;
     output.Swet    = Swet;
     output.b_ht    = b_ht;
     output.b_vt    = b_vt;
