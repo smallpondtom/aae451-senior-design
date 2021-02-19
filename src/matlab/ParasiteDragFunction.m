@@ -42,16 +42,21 @@ Q_fuse = inputs.GeometryInputs.Q_fuse;          % Fuselage-Nacelle interference 
 Q_wing = inputs.GeometryInputs.Q_wing;          % Wing-Nacelle interference factor
 Q_ht = inputs.GeometryInputs.Q_ht;              % Horizontal tail interference factor
 Q_vt = inputs.GeometryInputs.Q_vt;              % Vertical tail interference factor 
+Q_n = inputs.GeometryInputs.Q_nacel;            % Nacelle-wing interference factor
 S_ref = inputs.GeometryOutput.Sw;               % Reference area (Wing area to center axis)[m^2]  % NEED CHECK
 Swetfus = inputs.GeometryOutput.Swetfus;        % Fuselage wetted area [m^2]
 Swetwing = inputs.GeometryOutput.Swetwing;      % Wing wetted area [m^2]
 Sweth = inputs.GeometryOutput.Sweth;            % Horizontal tail wetted area [m^2]
 Swetv = inputs.GeometryOutput.Swetv;            % Vertical tail wetted area [m^2]
+Swetn = inputs.GeometryOutput.Swetn;            % Nacelle wetted area [m^2]
 upsweep = inputs.GeometryInputs.upsweep;        % Upsweep angle of tail [deg]
+L_nacel = inputs.GeometryInputs.L_nacel;        % Nacelle length [m]
+D_nacel= inputs.GeometryInputs.D_nacel;        % Nacelle diameter [m]
 
-Swet = [Swetfus, Swetwing, Sweth, Swetv];       % Assign vector storing selected wetted area [m^2]
-Q = [Q_fuse, Q_wing, Q_ht, Q_vt];           % Assign vector storing selected interference factors
-Char_L = [L_fuse, MC_wing, MC_ht, MC_vt];   % Assign characteristic lengths as vector [m]
+Swet = [Swetfus, Swetwing, Sweth, Swetv, Swetn]; % Assign vector storing selected wetted area [m^2]
+Q = [Q_fuse, Q_wing, Q_ht, Q_vt, Q_n];           % Assign vector storing selected interference factors
+% Char_L = [L_fuse, MC_wing, MC_ht, MC_vt, D_nacel];   % Assign characteristic lengths as vector [m]   % NEED CHECK NACELLE REF S
+Char_L = [L_fuse, MC_wing, MC_ht, MC_vt, L_nacel];   % Assign characteristic lengths as vector [m]   % NEED CHECK NACELLE REF S
 Re_num = zeros(1,length(Char_L));           % Assign vector storing selected Reynolds numbers
 t2c = [t2c_w, t2c_ht, t2c_vt];              % Assign vector storing airfoil thickness-to-chord ratio (t2c_wing, t2c_horizontal tail, t2c_vertical tail)
 Sweep = [WingSweep, HtSweep, VtSweep];      % Assign vector storing airfoil sweep angle [deg] (wing sweep, horizontal tail sweep, vertical tail sweep)
@@ -68,8 +73,8 @@ meu = sutherland_visc_calc(Temp, 'air');             % Calculate Dynamic Viscosi
 M = V / a;                                           % Calculate Cruise Mach Number [Mach]
 
 %% Reynolds Number & Cutoff Reynolds Number Calculation
-Re = rho * V * Char_L / meu;             % Calculate Components Reynolds Numbers (Re_fuse, Re_wing, Re_ht, Re_vt) Raymer Eq 12.26
-Re_c = 38.21 * (Char_L / k) .^ 1.053;    % Calculate Subsonic Cutoff Reynolds Numbers (Re_c_fuse, Re_c_wing, Re_c_ht, Re_c_vt) Raymer Eq 12.28
+Re = rho * V * Char_L / meu;             % Calculate Components Reynolds Numbers (Re_fuse, Re_wing, Re_ht, Re_vt, Re_n) Raymer Eq 12.26
+Re_c = 38.21 * (Char_L / k) .^ 1.053;    % Calculate Subsonic Cutoff Reynolds Numbers (Re_c_fuse, Re_c_wing, Re_c_ht, Re_c_vt, Re_c_n) Raymer Eq 12.28
 
 % Re_fuse = rho * V * L_fuse / meu;      % Calculate Fuselage Reynolds Number
 % Re_wing = rho * V * MC_wing / meu;     % Calculate Wing Reynolds Number
@@ -90,7 +95,7 @@ end
 
 %% Flat-plate skin friction coefficient calculation (Assume Turbulent Flow, Conservative Approx)
 
-C_f = 0.455 ./ (((log10(Re_num)) ^ 2.58) * ((1 + 0.144 * (M ^ 2)) ^ 0.65));   % Calculate turbulent flow flat-place skin friction coefficient (Cf_fuse, Cf_wing, Cf_ht, Cf_vt) Raymer Eq 12.27
+C_f = 0.455 ./ (((log10(Re_num)) ^ 2.58) * ((1 + 0.144 * (M ^ 2)) ^ 0.65));   % Calculate turbulent flow flat-place skin friction coefficient (Cf_fuse, Cf_wing, Cf_ht, Cf_vt, Cf_n) Raymer Eq 12.27
 
 %% Airfoil Form factor calculation
 
@@ -104,16 +109,21 @@ FF_foil = (1 + (0.6 / x_c_rat) * t2c + 100 * (t2c .^ 4)) * (1.34 * (M ^ 0.18) * 
 % FF_foil = 1 + Z .* t2c + 100 * (t2c .^ 4);           % Calculate airfoil form factors (FF_w, FF_ht, FF_vt)
 
 
-%% Fuselage Form Factor calculation(Raymer)
+%% Fuselage Form Factor calculation(Raymer Eq. 12.31)
 % Effective Diameter (Optional)
 % D_f = sqrt((4 * pi) * A_max);   
 FF_fuse = 0.9  + (5 / (fin_rat ^ 1.5)) + (fin_rat / 400);   % Calculate fuselage form factor
-FF = [FF_fuse, FF_foil];    % Assign vector storing form factor (FF_fuse, FF_wing, FF_ht, FF_vt]
 
-%% Miscellaneous C_D calculation
-C_Dmisc_up = 3.83 * (upsweep ^ 2.5) * A_max / S_ref;     % Calculate miscellaneous C_D due to upsweep
+%% Nacelle Form Factor calculation {Raymer Eq. 12.32 & Eq. 12.33)
+
+f = L_nacel / D_nacel;      % Calculate nacelle length-to-diameter ratio
+FF_nacel = 1 + (0.35 / f);  % Calculate nacelle form factor
+
+FF = [FF_fuse, FF_foil, FF_nacel];    % Assign vector storing form factor (FF_fuse, FF_wing, FF_ht, FF_vt, FF_nacel]
 
 %% Parasite Drag C_D0 calculation
+
+C_Dmisc_up = 3.83 * (upsweep ^ 2.5) * A_max / S_ref;     % Calculate miscellaneous C_D due to upsweep
 C_D0_comp = sum(C_f .* FF .* Q .* Swet) / S_ref;         % Calculate C_D0 due to components
 C_Dmisc_lp = 0.03 * C_D0_comp;                           % Calculate miscellaneous C_D due to leakage and protuberance (assumed to be 3% of component C_D0 for normal production aircraft)
 Cdo = C_D0_comp + C_Dmisc_lp + C_Dmisc_up;               % Calculate parasite drag coefficient
