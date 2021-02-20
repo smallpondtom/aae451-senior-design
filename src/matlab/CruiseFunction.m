@@ -13,13 +13,18 @@ function output = CruiseFunction(inputs,Wo)
     %% Inputs for cruise fuel computations
     Range  = inputs.MissionInputs.R;                    % aircraft design range [nmi] converted to [m]
     SFCc  = inputs.PropulsionInputs.SFCc;               % specific fuel consumption -cruise [1/hr] converted to [1/s]
+    
+      %% Additional inputs needed for cruise segment analysis
+    inputs.Aero.V = inputs.PerformanceInputs.V;        % cruise velocity [knots] converted to [m/s]
+    inputs.Aero.h = inputs.PerformanceInputs.hc;       % cruise altitude [ft] converted to [m]
+    
     %%
     %% Parasite drag computation
 
     % --->(MODIFICATION REQUIRED) TOMO
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    inputs.Aero.Cdo = ParasiteDragFunction(inputs);    % Parasite Drag Coefficient, Cdo
+    inputs.Aero.Cdo = ParasiteDragFunction(inputs, inputs.Aero.h);    % Parasite Drag Coefficient, Cdo
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END) 
@@ -33,9 +38,7 @@ function output = CruiseFunction(inputs,Wo)
     % <---(END) 
 
 
-    %% Additional inputs needed for cruise segment analysis
-    inputs.Aero.V = inputs.PerformanceInputs.V;        % cruise velocity [knots] converted to [m/s]
-    inputs.Aero.h = inputs.PerformanceInputs.hc;       % cruise altitude [ft] converted to [m]
+  
 
     %% Cruise fuel computation  
     V     = inputs.Aero.V;                           % cruise velocity [knots] converted to [m/s]
