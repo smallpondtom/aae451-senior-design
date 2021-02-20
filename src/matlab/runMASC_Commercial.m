@@ -75,10 +75,10 @@ AeroInputs.Clmax   = 1.6;                % maximum lift coefficient
 PropulsionInputs.num_eng = 2;               % number of engines
 PropulsionInputs.SFCc    = 0.50 / 3600;     % Specific Fuel Consumption @ cruise [1/hr] convert to [1/s]
 PropulsionInputs.SFCl    = 0.40 / 3600;     % Specific Fuel Consumption @ loiter [1/hr] convert to [1/s]
-%PropulsionInputs.BPR         = 15          % Engine-Bypass Ratio
+%PropulsionInputs.BPR    = 15               % Engine-Bypass Ratio
 
 %% PAYLOAD PARAMETERS
-PayloadInputs.crewnum    = 4;          % number of crew members (pilots)
+PayloadInputs.crewnum    = 4;                                % number of crew members (pilots)
 PayloadInputs.paxweight  = imperial2metric(230,'lb');        % passenger weight (including luggage) [lbs] convert 2 [kg]
 PayloadInputs.crewweight = imperial2metric(200,'lb');        % crew member weight (including luggage) [lbs] convert 2 [kg]
 
