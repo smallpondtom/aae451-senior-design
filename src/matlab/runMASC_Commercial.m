@@ -88,7 +88,7 @@ PayloadInputs.w_payload  = crewweight + paxweight;            % total payload we
 
 %% AGGREGATED INPUTS FOR AIRCRAFT SIZING
 inputs.MissionInputs     = MissionInputs;
-inputs.EconMission       = EconMission;
+% inputs.EconMission       = EconMission;   % What is EconMission for?
 inputs.PerformanceInputs = PerformanceInputs;
 inputs.GeometryInputs    = GeometryInputs;
 inputs.PayloadInputs     = PayloadInputs;

@@ -25,7 +25,7 @@ function output = CruiseFunction(inputs,Wo)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     inputs.Aero.Cdo = ParasiteDragFunction(inputs, inputs.Aero.h);    % Parasite Drag Coefficient, Cdo
-    
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END) 
 

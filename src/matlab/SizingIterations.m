@@ -12,6 +12,8 @@
 %
 % Note that no reserve segment is present here. 
 % Additional mission segments can be added but this function must be
+
+
 % changed to accomodate these.
 %%
 function FinalOutput = SizingIterations(inputs)
@@ -36,10 +38,10 @@ function FinalOutput = SizingIterations(inputs)
     % Global optimization to optimize the gross weight
     % Using the function "sizingObjFunc.m"
     start = TOGW_temp;
-    lb = 0; ub = TOGW_temp*10;
+    lb = 0; ub = TOGW_temp*10;  % Setting lower bound and upper bound of resulting minima
     A = []; b = [];
     Aeq = []; beq = [];
-    options = optimoptions("patternsearch","MeshTolerance",1e-10,"FunctionTolerance",1e-10);
+    options = optimoptions('patternsearch','MeshTolerance',1e-10,'FunctionTolerance',1e-10);
     objective = @(TOGW_temp) sizingObjFunc(TOGW_temp, inputs);
     [TOGW_temp, fval] = patternsearch(objective,start,A,b,Aeq,beq,lb,ub,options);
 

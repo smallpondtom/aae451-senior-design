@@ -11,7 +11,7 @@ function x = imperial2metric(val, unit)
 %}
 
     % Array of possible imperial unit input 
-    possible_units = ["lb","lbf","ft","in","hp","ft2","ft3","ft/s","nmi","lb/ft^2","knot","slug/ft^3", "lb/lbf-hr"];
+    possible_units = ["lb","lbf","ft","in","hp","ft^2","ft^3","ft/s","nmi","lb/ft^2","knot","slug/ft^3", "lb/lbf-hr"];
 
     % Assertion for input validation 
     assert(any(possible_units(:) == unit), 'The only possible imperial units are lb, ft, in, hp, ft^2, ft^3, ft/s, nmi, lb/ft^2, knot, slug/ft^3,lb/lbf-hr');

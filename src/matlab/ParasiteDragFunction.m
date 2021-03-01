@@ -106,7 +106,7 @@ C_f = 0.455 ./ (((log10(Re_num)) .^ 2.58) * ((1 + 0.144 * (M ^ 2)) ^ 0.65));   %
 %% Airfoil Form factor calculation
 % Calculate Airfoil Form Factor (Raymer 12.30) 
 x_c_rat = 0.3;              % Chordwise non-dimensional location of airfoil max thickness point (Assume low speed airfoils)
-FF_foil = (1 + (0.6 / x_c_rat) * t2c + 100 * (t2c .^ 4)) * (1.34 * (M ^ 0.18) * (cos(Sweep) .^ 0.28));  % Calculate airfoil form factors (FF_w, FF_ht, FF_vt)
+FF_foil = (1 + (0.6 / x_c_rat) * t2c + 100 * (t2c .^ 4)) .* (1.34 * (M ^ 0.18) * (cosd(Sweep) .^ 0.28));  % Calculate airfoil form factors (FF_w, FF_ht, FF_vt)
 
 %% Optional Airfoil Form Factor Calculation (Shevell)
 % Calculate Airfoil Form Factor (Shevell)
@@ -125,9 +125,10 @@ FF = [FF_fuse, FF_foil, FF_nacel];    % Assign vector storing form factor (FF_fu
 
 %% Parasite Drag C_D0 calculation
 C_Dmisc_up = 3.83 * (upsweep ^ 2.5) * A_max / S_ref;     % Calculate miscellaneous C_D due to upsweep
-C_D0_comp = sum(C_f .* FF .* Q .* Swet) / S_ref;         % Calculate C_D0 due to components (Cd_fuselage, Cd_wing, Cd_ht, Cd_vt, Cd_nacelle)
-C_Dmisc_lp = 0.03 * C_D0_comp;                           % Calculate miscellaneous C_D due to leakage and protuberance (assumed to be 3% of component C_D0 for normal production aircraft)
-Cdo = C_D0_comp + C_Dmisc_lp + C_Dmisc_up;               % Calculate parasite drag coefficient
+C_D0_comp = (C_f .* FF .* Q .* Swet) / S_ref;            % Calculate C_D0 due to components (Cd_fuselage, Cd_wing, Cd_ht, Cd_vt, Cd_nacelle)
+C_D0_comp_tot = sum(C_D0_comp);                          % Calculate total component C_D0
+C_Dmisc_lp = 0.03 * C_D0_comp_tot;                           % Calculate miscellaneous C_D due to leakage and protuberance (assumed to be 3% of component C_D0 for normal production aircraft)
+Cdo = C_D0_comp_tot + C_Dmisc_lp + C_Dmisc_up;               % Calculate parasite drag coefficient
 
 %% Function Outputs
     output.Cdo = Cdo;                 % Total parasite drag coef (Component drag coef + Miscellaneous drag coef)

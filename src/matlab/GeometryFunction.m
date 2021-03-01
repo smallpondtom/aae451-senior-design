@@ -134,7 +134,6 @@ function [output] = GeometryFunction(inputs)
     output.Sv      = Sv;
     output.Sh      = Sh;
     output.Sw      = Sw;
-    output.Sf      = Sf;
     output.Swetfus = Swetfus;
     output.Sweteng = Sweteng;
     output.Swetwing= Swetwing;
