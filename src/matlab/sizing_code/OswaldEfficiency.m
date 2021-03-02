@@ -9,7 +9,7 @@ function e0 = OswaldEfficiency(inputs)
     AR     = inputs.GeometryInputs.AR;               % wing aspect  ratio
     Lambda = inputs.GeometryInputs.WingSweep*pi/180; % wing sweep [rad]
     b      = inputs.GeometryOutput.b;                % wing span [ft] converted to [m]
-    Cdo    = inputs.Aero.Cdo;                        % Parasite drag coefficient
+    Cdo    = inputs.Aero.Cdo.Cdo;                        % Parasite drag coefficient
     %%
     %%
 
