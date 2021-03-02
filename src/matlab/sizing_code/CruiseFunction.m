@@ -51,7 +51,7 @@ function output = CruiseFunction(inputs,Wo)
         [Cdi,CL]    = InducedDragFunction(inputs,Wi);       % induced drag and lift coefficients
 
         %<**Compressibility Drag is ignored>
-        CD          = inputs.Aero.Cdo + Cdi;                % total drag coefficient 
+        CD          = inputs.Aero.Cdo.Cdo + Cdi;                % total drag coefficient 
 
         LDrat       = CL/CD;                                % lift-to-drag ratio during segment
         fc          = exp(-Range_seg*SFCc/(LDrat*V));       % cruise fuel fraction
