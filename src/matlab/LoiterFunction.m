@@ -13,7 +13,11 @@ function output = LoiterFunction(inputs,Wi)
     %% Inputs for loiter fuel computations
     time   = inputs.MissionInputs.loiter_time;           % Loiter time [hours] converted to [s]
     SFCl  = inputs.PropulsionInputs.SFCl;                % specific fuel consumption - loiter [1/hr] converted to [1/s]
-    %%
+    
+    %% Additional inputs needed for cruise segment analysis
+    inputs.Aero.V = inputs.PerformanceInputs.Vlt;   % Loiter velocity [knots] converted to [m/s]
+    inputs.Aero.h = inputs.PerformanceInputs.hlt;   % Loiter altitude [ft] converted to [m]
+    
     %% Parasite drag computation
 
     % --->(REQUIRE MODIFICATION) TOMO
@@ -22,16 +26,13 @@ function output = LoiterFunction(inputs,Wi)
     % FUNCTIONS "ParasiteDragFunction" and "OswaldEfficiency" also
     % used in the file "CruiseFunction.m" must be modified
 
-    inputs.Aero.Cdo = ParasiteDragFunction(inputs); % Parasite Drag Coefficient, Cdo
+    inputs.Aero.Cdo = ParasiteDragFunction(inputs, inputs.Aero.h); % Parasite Drag Coefficient, Cdo
     inputs.Aero.e0  = OswaldEfficiency(inputs);     % Oswald Efficiency Factor, e0
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END)
 
-    %% Additional inputs needed for cruise segment analysis
-    inputs.Aero.V = inputs.PerformanceInputs.Vlt;   % Loiter velocity [knots] converted to [m/s]
-    inputs.Aero.h = inputs.PerformanceInputs.hlt;   % Loiter altitude [ft] converted to [m]
-
+   
     %% loiter fuel computation  
     [Cdi,CL]    = InducedDragFunction(inputs,Wi);  % induced drag and lift coefficients 
     CD          = inputs.Aero.Cdo + Cdi;           % total drag coefficient

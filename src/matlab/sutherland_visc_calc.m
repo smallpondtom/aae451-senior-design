@@ -32,5 +32,5 @@ function myu = sutherland_visc_calc(T, gas)
     % Calculation
     T_ref = 288.15;  % [K]
     myu_ref = 1.789 * 10^(-5);  % [Pa-s]
-    myu = myu_ref * (T / T_ref)^(1.5) * (T_ref + C) / (T + C);
+    myu = myu_ref * (T / T_ref)^(1.5) * (T_ref + C) / (T + C);  % Dynamic Viscosity of gas [kg / (m * s)]
 end
