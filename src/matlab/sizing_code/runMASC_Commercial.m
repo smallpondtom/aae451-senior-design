@@ -61,7 +61,7 @@ GeometryInputs.Q_wing      = 1.2;     % Wing-Nacelle interference factor
 GeometryInputs.Q_nacel     = 1.2;     % Nacelle-Wing interference factor 
 GeometryInputs.Q_ht        = 1.05;    % Horizontal tail interference factor
 GeometryInputs.Q_vt        = 1.05;    % Vertical tail interference factor 
-GeometryInputs.upsweep     = 5;       % Upsweep angle of tail [deg]
+GeometryInputs.upsweep     = 5*pi/180;       % Upsweep angle of tail [deg]
 GeometryInputs.L_nacel     = 3.3;       % Nacelle length [m]
 GeometryInputs.D_nacel     = 1.3;       % Nacelle diamater (m)
 
