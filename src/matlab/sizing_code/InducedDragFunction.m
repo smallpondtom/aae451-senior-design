@@ -21,7 +21,7 @@ function [Cdi,CL] = InducedDragFunction(inputs,Wi)
   q = 0.5*rho*V^2;  % [N/m^2] or [Pa]
 
 % Lift Coefficient for flight conditions
-  CL = Wi/q/Sw;
+  CL = Wi/q/Sw
 
 % Induced Drag Coefficient 
   Cdi = CL^2./(pi*AR*e0);    

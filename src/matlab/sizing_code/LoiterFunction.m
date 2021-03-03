@@ -8,7 +8,7 @@
 %   Loiter fuel weight                                     %    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function output = LoiterFunction(inputs,Wi)
+function [output, inputs] = LoiterFunction(inputs,Wi)
 
     %% Inputs for loiter fuel computations
     time   = inputs.MissionInputs.loiter_time;           % Loiter time [hours] converted to [s]
@@ -27,20 +27,25 @@ function output = LoiterFunction(inputs,Wi)
     % used in the file "CruiseFunction.m" must be modified
 
     inputs.Aero.Cdo = ParasiteDragFunction(inputs, inputs.Aero.h); % Parasite Drag Coefficient, Cdo
+    inputs.Aero.loiter.Cdo = inputs.Aero.Cdo;
     inputs.Aero.e0  = OswaldEfficiency(inputs);     % Oswald Efficiency Factor, e0
-    
+    inputs.Aero.loiter.e0 = inputs.Aero.e0;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END)
 
    
     %% loiter fuel computation  
-    [Cdi,CL]    = InducedDragFunction(inputs,Wi);  % induced drag and lift coefficients 
-    CD          = inputs.Aero.Cdo.Cdo + Cdi;           % total drag coefficient
-    LDrat       = CL/CD;                           % lift-to-drag ratio during cruise
-    fl          = exp(-time*(SFCl)/(LDrat));       % loiter fuel weight fraction
-    Wf          = Wi*fl;                           % final aircraft weight after loiter segment
-    output.f_lt = Wf/Wi;                           % loiter fuel-weight ratio (for entire segment)
-    output.fuel = Wi-Wf;                           % total loiter fuel [lbs] converted to [kg]
+    [Cdi,CL]    = InducedDragFunction(inputs,Wi);   % induced drag and lift coefficients 
+    CD          = inputs.Aero.loiter.Cdo.Cdo + Cdi; % total drag coefficient
+    LDrat       = CL/CD;                            % lift-to-drag ratio during cruise
+    fl          = exp(-time*(SFCl)/(LDrat));        % loiter fuel weight fraction
+    Wf          = Wi*fl;                            % final aircraft weight after loiter segment
+    output.f_lt = Wf/Wi;                            % loiter fuel-weight ratio (for entire segment)
+    output.fuel = Wi-Wf;                            % total loiter fuel [lbs] converted to [kg]
+    
+    % remove field 
+    inputs.Aero = rmfield(inputs.Aero, 'Cdo');
+    inputs.Aero = rmfield(inputs.Aero, 'e0');
 end
 
 

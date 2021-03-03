@@ -8,7 +8,7 @@
 %   Cruise fuel weight                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function output = CruiseFunction(inputs,Wo)
+function [output, inputs] = CruiseFunction(inputs,Wo)
 
     %% Inputs for cruise fuel computations
     Range  = inputs.MissionInputs.R;                    % aircraft design range [nmi] converted to [m]
@@ -25,7 +25,7 @@ function output = CruiseFunction(inputs,Wo)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     inputs.Aero.Cdo = ParasiteDragFunction(inputs, inputs.Aero.h);    % Parasite Drag Coefficient, Cdo
-
+    inputs.Aero.cruise.Cdo = inputs.Aero.Cdo;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END) 
 
@@ -33,7 +33,7 @@ function output = CruiseFunction(inputs,Wo)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     inputs.Aero.e0  = OswaldEfficiency(inputs);        % Oswald Efficiency Factor, e0
-    
+    inputs.Aero.cruise.e0 = inputs.Aero.e0;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END) 
 
@@ -47,18 +47,21 @@ function output = CruiseFunction(inputs,Wo)
     Range_seg = round(Range/segs);                   % length of each cruise segment [nmi] converted to [m]
 
     for i = 1:segs
-        Wi = Wf;                                            % weight at beginning of cruise segment
-        [Cdi,CL]    = InducedDragFunction(inputs,Wi);       % induced drag and lift coefficients
+        Wi = Wf                                            % weight at beginning of cruise segment
+        [Cdi,CL]    = InducedDragFunction(inputs,Wi)       % induced drag and lift coefficients
 
         %<**Compressibility Drag is ignored>
-        CD          = inputs.Aero.Cdo.Cdo + Cdi;                % total drag coefficient 
+        CD          = inputs.Aero.cruise.Cdo.Cdo + Cdi                % total drag coefficient 
 
-        LDrat       = CL/CD;                                % lift-to-drag ratio during segment
-        fc          = exp(-Range_seg*SFCc/(LDrat*V));       % cruise fuel fraction
+        LDrat       = CL/CD                                % lift-to-drag ratio during segment
+        fc          = exp(-Range_seg*SFCc/LDrat/V)          % cruise fuel fraction
         Wf          = Wi*fc;                                % final aircraft weight after cruise [lbs] converted to [kg]
     end
     output.f_cr     = Wf/Wo;                              % cruise fuel-weight ratio (for entire mission)
     output.fuel     = (Wo-Wf);                            % total cruise fuel [lbs] converted to [kg]
+    
+    % remove field 
+    inputs.Aero = rmfield(inputs.Aero, 'Cdo');
 end
   
   

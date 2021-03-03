@@ -29,7 +29,6 @@ function FinalOutput = SizingIterations(inputs)
     % aircraft.
     
     TOGW_temp = imperial2metric(911000, 'lb');        % guess of takeoff gross weight [lbs] convert to [kg]
-    
     % <---(END)
     
     
@@ -38,7 +37,7 @@ function FinalOutput = SizingIterations(inputs)
     % Global optimization to optimize the gross weight
     % Using the function "sizingObjFunc.m"
     start = TOGW_temp;
-    lb = 0; ub = TOGW_temp*10;  % Setting lower bound and upper bound of resulting minima
+    lb = TOGW_temp/10; ub = TOGW_temp*10;  % Setting lower bound and upper bound of resulting minima
     A = []; b = [];
     Aeq = []; beq = [];
     options = optimoptions('patternsearch','MeshTolerance',1e-10,'FunctionTolerance',1e-10);
