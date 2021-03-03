@@ -73,8 +73,8 @@ AeroInputs.Clmax   = 2.1;                % maximum lift coefficient
 
 %% PROPULSION PARAMETERS
 PropulsionInputs.num_eng = 2;               % number of engines
-PropulsionInputs.SFCc    = 0.4 / 3600;     % Specific Fuel Consumption @ cruise [1/hr] convert to [1/s]
-PropulsionInputs.SFCl    = 0.4 / 3600;     % Specific Fuel Consumption @ loiter [1/hr] convert to [1/s]
+PropulsionInputs.SFCc    = 0.7 / 3600;     % Specific Fuel Consumption @ cruise [1/hr] convert to [1/s]
+PropulsionInputs.SFCl    = 0.45 / 3600;     % Specific Fuel Consumption @ loiter [1/hr] convert to [1/s]
 % PropulsionInputs.BPR    = 5.5;               % Engine-Bypass Ratio
 
 %% PAYLOAD PARAMETERS
