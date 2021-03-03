@@ -1,94 +1,140 @@
 {
-	"Wfuel" : 70166.4,
+	"Wfuel" : 129.373,
 	"inputs" : {
 		"MissionInputs" : {
-			"R" : 1.74458e+07,
-			"loiter_time" : 1800,
-			"pax" : 301
+			"R" : 1.33714e+06,
+			"loiter_time" : 2700,
+			"pax" : 6
 			},
 		"PerformanceInputs" : {
-			"TW" : 0.28,
-			"WS" : 693.305,
-			"V" : 246.933,
-			"Vlt" : 102.889,
-			"nmax" : 3,
+			"TW" : 1.2,
+			"WS" : 292.946,
+			"V" : 206.549,
+			"Vlt" : 152.275,
+			"nmax" : 1.5,
 			"hc" : 11582.4,
-			"hlt" : 1524,
+			"hlt" : 8839.2,
 			"cruiseSpeedOfSound" : 295.063,
-			"M" : 0.836883
+			"M" : 0.700018
 			},
 		"GeometryInputs" : {
-			"AR" : 8.7,
-			"WingSweep" : 31.6,
-			"HtSweep" : 35,
-			"VtSweep" : 40,
+			"df" : 2,
+			"AR" : 8.989,
+			"WingSweep" : 9.519,
+			"HtSweep" : 21.34,
+			"VtSweep" : 45,
 			"thick2chord" : 0.12,
-			"t2c_ht" : 0.1,
+			"t2c_ht" : 0.14,
 			"t2c_vt" : 0.1,
-			"TR" : 0.3,
-			"FinessRatio" : 11,
+			"TR" : 0.33,
+			"FinessRatio" : 7,
+			"Swetfus" : 69.93,
 			"AR_ht" : 6.4,
-			"AR_vt" : 1.3,
-			"TR_ht" : 0.33,
-			"TR_vt" : 0.57,
+			"AR_vt" : 0.909,
+			"TR_ht" : 0.5,
+			"TR_vt" : 0.9346,
 			"k" : 6.33984e-06,
-			"A_max" : 2.85023,
-			"Q_fuse" : 1.4,
-			"Q_wing" : 1.2,
-			"Q_nacel" : 1.2,
-			"Q_ht" : 1.05,
-			"Q_vt" : 1.05,
+			"A_max" : 3.14159,
+			"Q_fuse" : 1,
+			"Q_wing" : 1.3,
+			"Q_nacel" : 1.3,
+			"Q_ht" : 1.04,
+			"Q_vt" : 1.04,
 			"upsweep" : 5,
-			"L_nacel" : 4,
-			"D_nacel" : 1
+			"L_nacel" : 3.3,
+			"D_nacel" : 1.3
 			},
 		"PayloadInputs" : {
-			"crewnum" : 4,
-			"paxweight" : 104.326,
-			"crewweight" : 90.7184,
-			"w_payload" : 31765
+			"crewnum" : 2,
+			"paxweight" : 122.47,
+			"crewweight" : 108.862,
+			"w_payload" : 952.543
 			},
 		"PropulsionInputs" : {
 			"num_eng" : 2,
-			"SFCc" : 0.000138889,
+			"SFCc" : 0.000111111,
 			"SFCl" : 0.000111111
 			},
 		"AeroInputs" : {
-			"Clmax" : 1.6
+			"Clmax" : 2.1
 			},
 		"Sizing" : {
-			"Thrust" : 45210.9,
-			"TOGW_temp" : 161468,
-			"W0" : 161468
+			"Thrust" : 3032.62,
+			"TOGW_temp" : 2527.18,
+			"W0" : 2527.18
 			},
 		"LayoutOutput" : {
-			"df" : 6.096,
-			"lf" : 67.056,
+			"df" : 2,
+			"lf" : 14,
 			"crew" : 10,
 			"pilots" : 2,
 			"flcrew" : 8
 			},
 		"GeometryOutput" : {
-			"b" : 45.0132,
-			"MAC" : 5.67398,
-			"Sv" : 31.2675,
-			"Sh" : 43.7924,
-			"Sw" : 232.895,
-			"Swetfus" : 1132.68,
-			"Sweteng" : 163.14,
-			"Swetwing" : 474.967,
-			"Sweth" : 89.3365,
-			"Swetv" : 63.7858,
-			"Swetn" : 12.5664,
-			"Swet" : 1936.47,
-			"b_ht" : 16.7413,
-			"b_vt" : 6.37556,
-			"MC_ht" : 2.8371,
-			"MC_vt" : 5.02691
+			"b" : 8.80603,
+			"MAC" : 1.06251,
+			"Sv" : 1.08525,
+			"Sh" : 1.45494,
+			"Sw" : 8.62679,
+			"Swetfus" : 69.93,
+			"Sweteng" : 1856.28,
+			"Swetwing" : 17.5935,
+			"Sweth" : 2.96807,
+			"Swetv" : 2.21392,
+			"Swetn" : 13.4774,
+			"Swet" : 1962.46,
+			"b_ht" : 3.05149,
+			"b_vt" : 0.993225,
+			"MC_ht" : 0.494454,
+			"MC_vt" : 1.09307,
+			"Swetfus_chk" : 71.7238,
+			"Wt" : 2527.18
+			},
+		"Aero" : {
+			"V" : 152.275,
+			"h" : 8839.2,
+			"cruise" : {
+				"Cdo" : {
+					"Cdo" : 0.0480085,
+					"Cd_fuse" : 0.0207031,
+					"Cd_wing" : 0.0133995,
+					"Cd_ht" : 0.00212156,
+					"Cd_vt" : 0.00117392,
+					"Cd_nacel" : 0.00616577,
+					"Cd_misc" : 0.00444466,
+					"Re_fuse" : 6.78931e+07,
+					"Re_wing" : 5.15267e+06,
+					"Re_ht" : 2.39786e+06,
+					"Re_vt" : 5.30086e+06,
+					"Re_nacel" : 1.60034e+07,
+					"FF_fuse" : 1.18747,
+					"Re_fuse_old" : 6.78931e+07
+					},
+				"e0" : 0.57884
+				},
+			"loiter" : {
+				"Cdo" : {
+					"Cdo" : 0.0459777,
+					"Cd_fuse" : 0.0198761,
+					"Cd_wing" : 0.0127004,
+					"Cd_ht" : 0.00200563,
+					"Cd_vt" : 0.00111277,
+					"Cd_nacel" : 0.00589735,
+					"Cd_misc" : 0.00438551,
+					"Re_fuse" : 9.2177e+07,
+					"Re_wing" : 6.99567e+06,
+					"Re_ht" : 3.25552e+06,
+					"Re_vt" : 7.19687e+06,
+					"Re_nacel" : 2.17274e+07,
+					"FF_fuse" : 1.18747,
+					"Re_fuse_old" : 9.2177e+07
+					},
+				"e0" : 0.57884
+				}
 			}
 		},
 	"EmptyWeightOutput" : {
-		"fe" : 0.368718,
-		"We" : 59536
+		"fe" : 0.571888,
+		"We" : 1445.26
 		}
 	}
