@@ -52,7 +52,7 @@ function [output, inputs] = CruiseFunction(inputs,Wo)
 
         %<**Compressibility Drag is ignored>
         CD          = inputs.Aero.cruise.Cdo.Cdo + Cdi;                % total drag coefficient 
-        CD = CD / 100;
+        CD = CD;
         LDrat       = CL/CD;                                % lift-to-drag ratio during segment
         fc          = exp(-Range_seg*SFCc/LDrat/V);          % cruise fuel fraction
         Wf          = Wi*fc;                                % final aircraft weight after cruise [lbs] converted to [kg]
