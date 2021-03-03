@@ -37,11 +37,11 @@ function diff = sizingObjFunc(TOGW_temp, inputs)
       f_cl                = ClimbOutput.f_cl;           % climb fuel weight fraction
       W2                  = W1*f_cl;                    % aircraft weight after climb segment [kg]
       % Cruise segment fuel weight fraction
-      CruiseOutput        = CruiseFunction(inputs,W2);
+      [CruiseOutput, inputs]        = CruiseFunction(inputs,W2);
       f_cr                = CruiseOutput.f_cr;          % cruise fuel weight fraction
       W3                  = W2*f_cr;                    % aircraft weight after cruise segment [kg]
       % Loiter segment fuel weight fraction
-      LoiterOutput        = LoiterFunction(inputs,W3);
+      [LoiterOutput, inputs]        = LoiterFunction(inputs,W3);
       f_lt                = LoiterOutput.f_lt;          % loiter fuel weight segment
       W4                  = W3*f_lt;                    % aircraft weight after loiter segment [lbs]
       % Landing and taxi fuel weight fraction
