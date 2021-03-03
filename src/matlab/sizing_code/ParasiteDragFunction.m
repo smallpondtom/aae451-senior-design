@@ -124,7 +124,7 @@ FF_nacel = 1 + (0.35 / f);            % Calculate nacelle form factor
 FF = [FF_fuse, FF_foil, FF_nacel];    % Assign vector storing form factor (FF_fuse, FF_wing, FF_ht, FF_vt, FF_nacel]
 
 %% Parasite Drag C_D0 calculation
-C_Dmisc_up = 3.83 * (upsweep ^ 2.5) * A_max / S_ref;     % Calculate miscellaneous C_D due to upsweep
+C_Dmisc_up = 3.83 * (deg2rad(upsweep) ^ 2.5) * A_max / S_ref;     % Calculate miscellaneous C_D due to upsweep
 C_D0_comp = (C_f .* FF .* Q .* Swet) / S_ref;            % Calculate C_D0 due to components (Cd_fuselage, Cd_wing, Cd_ht, Cd_vt, Cd_nacelle)
 C_D0_comp_tot = sum(C_D0_comp);                          % Calculate total component C_D0
 C_Dmisc_lp = 0.03 * C_D0_comp_tot;                           % Calculate miscellaneous C_D due to leakage and protuberance (assumed to be 3% of component C_D0 for normal production aircraft)
@@ -139,6 +139,13 @@ Cdo = C_D0_comp_tot + C_Dmisc_lp + C_Dmisc_up;               % Calculate parasit
     output.Cd_nacel = C_D0_comp(5);   % Nacelle component drag coef
     output.Cd_misc = C_Dmisc_lp + C_Dmisc_up;   % Miscellaneous drag coef (upsweep + leak & protuberance)
     
+    output.Re_fuse = Re_num(1);       % Fuselage Reynolds Number
+    output.Re_wing = Re_num(2);       % Wing Reynolds Number
+    output.Re_ht = Re_num(3);         % Horizontal Tail Reynolds Number
+    output.Re_vt = Re_num(4);         % Vertical Tail Reynolds Number
+    output.Re_nacel = Re_num(5);      % Nacelle Reynolds Number
+    output.FF_fuse = FF_fuse;         % Fuselage Form Factor
+    output.Re_fuse_old = Re(1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % <---(END)
 
