@@ -37,8 +37,8 @@ function [output, inputs] = LoiterFunction(inputs,Wi)
     %% loiter fuel computation  
     [Cdi,CL]    = InducedDragFunction(inputs,Wi);   % induced drag and lift coefficients 
     CD          = inputs.Aero.loiter.Cdo.Cdo + Cdi; % total drag coefficient
-    CD = CD / 100
-    LDrat       = CL/CD                            % lift-to-drag ratio during cruise
+    CD = CD / 100;
+    LDrat       = CL/CD;                            % lift-to-drag ratio during cruise
     fl          = exp(-time*(SFCl)/(LDrat));        % loiter fuel weight fraction
     Wf          = Wi*fl;                            % final aircraft weight after loiter segment
     output.f_lt = Wf/Wi;                            % loiter fuel-weight ratio (for entire segment)

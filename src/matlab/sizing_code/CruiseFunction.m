@@ -47,14 +47,14 @@ function [output, inputs] = CruiseFunction(inputs,Wo)
     Range_seg = round(Range/segs);                   % length of each cruise segment [nmi] converted to [m]
 
     for i = 1:segs
-        Wi = Wf                                            % weight at beginning of cruise segment
-        [Cdi,CL]    = InducedDragFunction(inputs,Wi)       % induced drag and lift coefficients
+        Wi = Wf;                                            % weight at beginning of cruise segment
+        [Cdi,CL]    = InducedDragFunction(inputs,Wi);       % induced drag and lift coefficients
 
         %<**Compressibility Drag is ignored>
-        CD          = inputs.Aero.cruise.Cdo.Cdo + Cdi                % total drag coefficient 
+        CD          = inputs.Aero.cruise.Cdo.Cdo + Cdi;                % total drag coefficient 
         CD = CD / 100;
-        LDrat       = CL/CD                                % lift-to-drag ratio during segment
-        fc          = exp(-Range_seg*SFCc/LDrat/V)          % cruise fuel fraction
+        LDrat       = CL/CD;                                % lift-to-drag ratio during segment
+        fc          = exp(-Range_seg*SFCc/LDrat/V);          % cruise fuel fraction
         Wf          = Wi*fc;                                % final aircraft weight after cruise [lbs] converted to [kg]
     end
     output.f_cr     = Wf/Wo;                              % cruise fuel-weight ratio (for entire mission)
