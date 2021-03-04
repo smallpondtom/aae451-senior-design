@@ -28,7 +28,8 @@ MissionInputs.pax         = 6;                            % number of passengers
 %% PERFORMANCE PARAMETERS
 PerformanceInputs.TW   = 1.2;                                   % thrust-to-weight ratio [lb/lb] or [N/N]
 PerformanceInputs.WS   = imperial2metric(60,'lb/ft^2');         % wing loading [lbs/ft^2] convert to [kg/m^2]
-PerformanceInputs.V    = imperial2metric(401.5, 'knot');           % cruise velocity [knots] convert to [m/s]
+PerformanceInputs.V    = 206.5; 
+% PerformanceInputs.V    = imperial2metric(401.5, 'knot');           % cruise velocity [knots] convert to [m/s]
 PerformanceInputs.Vlt  = imperial2metric(296, 'knot');           % loiter velocity [knots] convert to [m/s]
 PerformanceInputs.nmax = 1.5;                                      % maximum load factor
 PerformanceInputs.hc   = imperial2metric(38000, 'ft');           % cruise altitude [ft] convert to [m]
