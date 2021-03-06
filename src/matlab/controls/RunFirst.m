@@ -62,8 +62,12 @@ DerivedConstants  % This script computes some intermediate constants used below
 %
 % Mass related inputs
 constant(1)=W;      % W, Weight, pounds (lbf)
+g = 32.17405;
 constant(2)=32.17405;  % g, Acceleration of gravity, ft/(sec*sec)
+
+m = W / g;
 constant(3)=constant(1)/constant(2); % mass, slugs
+
 constant(4)=Ixx;    % Ixx, slug*ft*ft
 constant(5)=Iyy;   % Iyy, slug*ft*ft
 constant(6)=Izz;   % Izz, slug*ft*ft
@@ -73,15 +77,34 @@ constant(9)=0; % unassigned
 
 % Derived constants from the inertia data
 constant(10)=constant(4)*constant(6)-constant(7)*constant(7);  %gamma
+gamma = Ixx * Izz - Ixz * Ixz;
+
 constant(11)=((constant(5)-constant(6))*constant(6)-constant(7)*constant(7))/constant(10);% c1
+c1 = ((Iyy - Izz * Izz - Ixz * Ixz)) / gamma;
+
 constant(12)=(constant(4)-constant(5)+constant(6))*constant(7)/constant(10);% c2
+c2 = ((Ixx - Iyy + Izz) * Ixz) / gamma;
+
 constant(13)= constant(6)/constant(10);% c3 
+c3 = Izz / gamma;
+
 constant(14)= constant(7)/constant(10);% c4 
+c4 = Ixz / gamma;
+
 constant(15)=(constant(6)-constant(4))/constant(5);% c5 
+c5 = (Izz - Ixx) / Iyy;
+
 constant(16)= constant(7)/constant(5);% c6
+c6 = Ixz / Iyy;
+
 constant(17)= 1/constant(5);% c7
+c7 = 1 / Iyy;
+
 constant(18)=  (constant(4)*(constant(4)-constant(5))+constant(7)*constant(7))/constant(10);% c8 
+c8 = (Ixx * (Ixx - Iyy) + Ixz * Ixz) / gamma;
+
 constant(19)=  constant(4)/constant(10);% c9 
+c9 = Ixx / gamma;
 
 % aircraft geometry
 constant(20)=S_w;    % S, wing area, ft^2
@@ -93,43 +116,87 @@ constant(24)=0;      % dT, thrust offset distance, ft
 % Nondimensional Aerodynamic stability and control derivatives
 
 % Drag Polar CD=k(CLstatic-CLdm)^2 + CDm
-constant(25)=Cd_0;   % CDm, CD for minimum drag
-constant(26)=k; % k
+constant(25)=Cd_0;   % CDm, CD for minimum drag (Zero lift drag coeff???)
+constant(26)=k;      % k
 constant(27)=0;      % CLdm, CL at the minimum drag point
 
 % Lift Force
 constant(28)=CL_0(S_w,S_h,M,tc_w,alpha_0,epsilon_t,i_w,i_h,epsilon_0_h,AR_w,Lambda_c4,Lambda_c2,lambda_w,kappa,beta,b_w,d,AR_h,eta_h);  % CL0
+CL_0 = CL_0(S_w,S_h,M,tc_w,alpha_0,epsilon_t,i_w,i_h,epsilon_0_h,AR_w,Lambda_c4,Lambda_c2,lambda_w,kappa,beta,b_w,d,AR_h,eta_h);
+
 constant(29)=CL_alpha(AR_w,AR_h,Lambda_c2,lambda_w,l_h,h_h,b_w,d,eta_h,S_h,S_w,kappa_h,Lambda_c2_h,beta,kappa);   % CLalpha
+CL_alpha = CL_alpha(AR_w,AR_h,Lambda_c2,lambda_w,l_h,h_h,b_w,d,eta_h,S_h,S_w,kappa_h,Lambda_c2_h,beta,kappa);   % CLalpha (dCl / dalpha)
+
 constant(30)=CL_de(S_w,S_h,AR_h,ce_ch,eta_oe,eta_ie,beta,kappa_h,lambda_h,Lambda_c2_h,tc_h,delta_e,Cl_alpha_h);   % CLdeltaE
+CL_de = CL_de(S_w,S_h,AR_h,ce_ch,eta_oe,eta_ie,beta,kappa_h,lambda_h,Lambda_c2_h,tc_h,delta_e,Cl_alpha_h);   % CLdeltaE
+
 constant(31)=CL_alpha_dot(l_h, h_h, b_w, lambda, AR_w, AR_h, Lambda_c4, Lambda_c4_h, beta, kappa, kappa_h, V_h, eta_h);    % CLalphadot
+CL_alpha_dot = CL_alpha_dot(l_h, h_h, b_w, lambda, AR_w, AR_h, Lambda_c4, Lambda_c4_h, beta, kappa, kappa_h, V_h, eta_h);    % CLalphadot
+
 constant(32)=CL_q(Xw,b_w,c_w,c_h,AR_w,Lambda_c4,Lambda_c2,Lambda_c2_h,Xh,S_h,S_w,eta_h,AR_h,beta, V_h,b_h, kappa, kappa_h);    % CLQ
+CL_q = CL_q(Xw,b_w,c_w,c_h,AR_w,Lambda_c4,Lambda_c2,Lambda_c2_h,Xh,S_h,S_w,eta_h,AR_h,beta, V_h,b_h, kappa, kappa_h);    % CLQ
+
 % Side Force
 constant(33)=0;      % CY0
 constant(34)=Cy_beta(two_r_one,eta_v,beta,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Lambda_c4_v,Z_w,d,dihedral,wingloc,Z_w1,S_h,S_o); % CYbeta
+Cy_beta = Cy_beta(two_r_one,eta_v,beta,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Lambda_c4_v,Z_w,d,dihedral,wingloc,Z_w1,S_h,S_o); % CYbeta
+
 constant(35)=Cy_da(S_w);      % CYdeltaA
+Cy_da = Cy_da(S_w);      % CYdeltaA
+
 constant(36)=Cy_dr(S_w,b_w,S_h,S_v,b_v,c_v,x_AC_vh,two_r_one,AR_v,l_v,Z_v,eta_or,eta_ir,cr_cv,beta,kappa_v,Lambda_c2_v,lambda_v,delta_r,alpha);  % CydeltaR
+Cy_dr = Cy_dr(S_w,b_w,S_h,S_v,b_v,c_v,x_AC_vh,two_r_one,AR_v,l_v,Z_v,eta_or,eta_ir,cr_cv,beta,kappa_v,Lambda_c2_v,lambda_v,delta_r,alpha);  % CydeltaR
+
 constant(37)=Cy_p(b_w,l_v,Z_v,alpha,two_r_one,eta_v,beta,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4_v,Z_w,d,dihedral,wingloc,Z_w1,S_h,S_o); % Cy_p
+Cy_p = Cy_p(b_w,l_v,Z_v,alpha,two_r_one,eta_v,beta,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4_v,Z_w,d,dihedral,wingloc,Z_w1,S_h,S_o); % Cy_p
+
 constant(38)=Cy_r(alpha,two_r_one,eta_v,beta,AR_v,b_v,b_w,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Z_w,d,dihedral,wingloc,Z_w1,S_h,S_o,l_v,Z_v);  % CYR
+Cy_r = Cy_r(alpha,two_r_one,eta_v,beta,AR_v,b_v,b_w,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Z_w,d,dihedral,wingloc,Z_w1,S_h,S_o,l_v,Z_v);  % CYR
+
 % Rolling Moment
 constant(39)=0;       % Cl0
 constant(40)=Cl_beta(CL_wb,theta,theta_h,Lambda_c2, Lambda_c4,Lambda_c4_h,S_w,b_w,AR_w,AR_h,Z_v,alpha,l_v, M,two_r_one,eta_v,beta,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,Z_w,d,wingloc,Z_w1,S_h,S_o, dihedral,dihedral_h,Lambda_c2_h,l_b,b_h,CL_hb); % Clbeta
+Cl_beta = Cl_beta(CL_wb,theta,theta_h,Lambda_c2, Lambda_c4,Lambda_c4_h,S_w,b_w,AR_w,AR_h,Z_v,alpha,l_v, M,two_r_one,eta_v,beta,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,Z_w,d,wingloc,Z_w1,S_h,S_o, dihedral,dihedral_h,Lambda_c2_h,l_b,b_h,CL_hb); % Clbeta
+
 constant(41)=Cl_da(S_w,AR_w,ca_cw,eta_ia,eta_oa,beta,kappa,Lambda_c4,lambda_w,tc_w,Cl_alpha_w);   % CldeltaA
+Cl_da = Cl_da(S_w,AR_w,ca_cw,eta_ia,eta_oa,beta,kappa,Lambda_c4,lambda_w,tc_w,Cl_alpha_w);   % CldeltaA
+
 constant(42)=Cl_dr(S_w,b_w,S_h,S_v,b_v,c_v,x_AC_vh,two_r_one,AR_v,l_v,Z_v,eta_or,eta_ir,cr_cv,beta,kappa_v,Lambda_c2_v,lambda_v,delta_r,alpha);  % CldeltaR
+Cl_dr = Cl_dr(S_w,b_w,S_h,S_v,b_v,c_v,x_AC_vh,two_r_one,AR_v,l_v,Z_v,eta_or,eta_ir,cr_cv,beta,kappa_v,Lambda_c2_v,lambda_v,delta_r,alpha);  % CldeltaR
+
 constant(43)=Cl_p(b_h,b_w,Z_v,two_r_one,eta_v,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Lambda_c4_h,Z_w,d,lambda_w,wingloc,Z_w1,S_h,S_o,beta,Cl_alpha,Cl_alpha_h,AR_w,lambda_h, AR_h);  % ClP
+Cl_p = Cl_p(b_h,b_w,Z_v,two_r_one,eta_v,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Lambda_c4_h,Z_w,d,lambda_w,wingloc,Z_w1,S_h,S_o,beta,Cl_alpha,Cl_alpha_h,AR_w,lambda_h, AR_h);  % ClP
+
 constant(44)=Cl_r(l_v,alpha,Z_v,S_h,S_v,x_over_c_v,b_v,Z_h,two_r_one,lambda_v,S_w,Z_w,d,AR_w,beta,Lambda_c4,c_w,Xw,AR_v,eta_v,b_w,cf,delta_f,theta,lambda_w,Gamma);  % ClR
+Cl_r = Cl_r(l_v,alpha,Z_v,S_h,S_v,x_over_c_v,b_v,Z_h,two_r_one,lambda_v,S_w,Z_w,d,AR_w,beta,Lambda_c4,c_w,Xw,AR_v,eta_v,b_w,cf,delta_f,theta,lambda_w,Gamma);  % ClR
+
 % Pitching Moment
 constant(45)=Cm_0(S_h_slip,S_w,S_h,M,tc_w,alpha_0,epsilon_t,i_w,i_h,epsilon_0_h,AR_w,Lambda_c4,lambda_w,beta,Cm_0_r,Cm_o_t,Lambda_c2_h,kappa_h,AR_h,Xw);   % CM0
+Cm_0 = Cm_0(S_h_slip,S_w,S_h,M,tc_w,alpha_0,epsilon_t,i_w,i_h,epsilon_0_h,AR_w,Lambda_c4,lambda_w,beta,Cm_0_r,Cm_o_t,Lambda_c2_h,kappa_h,AR_h,Xw);   % CM0
+
 constant(46)=Cm_alpha(AR_w,AR_h,Lambda_c2,lambda_w,l_h,h_h,b_w,c_w,d,eta_h,S_h,S_w,kappa_h,Lambda_c2_h,beta,kappa,Xw); % Cmalpha
+Cm_alpha = Cm_alpha(AR_w,AR_h,Lambda_c2,lambda_w,l_h,h_h,b_w,c_w,d,eta_h,S_h,S_w,kappa_h,Lambda_c2_h,beta,kappa,Xw); % Cmalpha
+
 constant(47)=Cm_de(S_w,S_h,AR_h,ce_ch,eta_oe,eta_ie,beta,kappa_h,lambda_h,Lambda_c2_h,tc_h,delta_e,Cl_alpha_h,V_h); % CMdeltaE
 constant(48)=Cm_a_dot(l_h,h_h,b_w,lambda_w,AR_w,Lambda_c4,M,Cl_alpha,q_bar_h,q_bar,S_h,Xh,c_w,S_w);  % CMalphadot
 constant(49)=Cm_q(Xw,b_w,c_w,c_h,AR_w,Lambda_c4,Lambda_c2,Xh,S_h,S_w,eta_h,AR_h,beta,V_h,b_h,Cl_alpha,B);  % CMQ
 % Yawing Moment
 constant(50)=0;         % CN0
 constant(51)=Cn_beta(S_w,b_w,alpha,l_v,Z_v,l_f,S_b_s,Rl_f,x_m,h1_fuse,h2_fuse,hmax_fuse,wmax_fuse,two_r_one,eta_v,M,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,Z_w,d,Z_w1,S_h,Lambda_c4,Lambda_c2_v);  % CNbeta
+Cn_beta = Cn_beta(S_w,b_w,alpha,l_v,Z_v,l_f,S_b_s,Rl_f,x_m,h1_fuse,h2_fuse,hmax_fuse,wmax_fuse,two_r_one,eta_v,M,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,Z_w,d,Z_w1,S_h,Lambda_c4,Lambda_c2_v);  % CNbeta
+
 constant(52)=Cn_da(S_w,AR_w,ca_cw,eta_ia,eta_oa,beta,kappa,Lambda_c4,lambda_w,tc_w,Cl_alpha_w,CL); % CNdeltaA
+Cn_da = Cn_da(S_w,AR_w,ca_cw,eta_ia,eta_oa,beta,kappa,Lambda_c4,lambda_w,tc_w,Cl_alpha_w,CL); % CNdeltaA
+
 constant(53)=Cn_dr(S_w,b_w,S_h,S_v,b_v,c_v,x_AC_vh,two_r_one,AR_v,l_v,Z_v,eta_or,eta_ir,cr_cv,beta,kappa_v,Lambda_c2_v,lambda_v,delta_r,alpha); % CNdeltaR
+Cn_dr = Cn_dr(S_w,b_w,S_h,S_v,b_v,c_v,x_AC_vh,two_r_one,AR_v,l_v,Z_v,eta_or,eta_ir,cr_cv,beta,kappa_v,Lambda_c2_v,lambda_v,delta_r,alpha); % CNdeltaR
+
 constant(54)=Cn_p(c_w,B,theta,adelf,delf,b_w,l_v,b_h,Z_v,two_r_one,eta_v,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Lambda_c2,Lambda_c4_h,Z_w,d,lambda_w,wingloc,Z_w1,S_h,S_o,beta,Cl_alpha,Cl_alpha_h,AR_w,lambda_h, AR_h, b_f,Xw,CL,Lambda_c4_v,alpha); % CNP
+Cn_p = Cn_p(c_w,B,theta,adelf,delf,b_w,l_v,b_h,Z_v,two_r_one,eta_v,AR_v,b_v,Z_h,x_over_c_v,lambda_v,S_v,S_w,Lambda_c4,Lambda_c2,Lambda_c4_h,Z_w,d,lambda_w,wingloc,Z_w1,S_h,S_o,beta,Cl_alpha,Cl_alpha_h,AR_w,lambda_h, AR_h, b_f,Xw,CL,Lambda_c4_v,alpha); % CNP
+
 constant(55)=Cn_r(CL,C_bar_D_o,l_v,alpha,Z_v,S_h,S_v,x_over_c_v,b_v,Z_h,two_r_one,lambda_v,S_w,Z_w,d,AR_w,beta,Lambda_c4,c_w,Xw,AR_v,eta_v,b_w); % CNR
+Cn_r = Cn_r(CL,C_bar_D_o,l_v,alpha,Z_v,S_h,S_v,x_over_c_v,b_v,Z_h,two_r_one,lambda_v,S_w,Z_w,d,AR_w,beta,Lambda_c4,c_w,Xw,AR_v,eta_v,b_w); % CNR
+
 % Reference positions
 constant(56)=.264;  % XbarRef, nondimensional
 constant(57)=.264;  % XbarCG,  nondimensional

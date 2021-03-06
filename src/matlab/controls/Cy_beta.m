@@ -90,7 +90,7 @@ A_v_hb_over_A_v = interlim1(Matrixa, Matrixb, x_over_c_v);
 %%The referenced figure assumes all values of lambda_v less than .6 are estimated at .6
 
 
-if lambda_v < .6;
+if lambda_v < .6
    lambda_v = .6;
 end
 
@@ -155,7 +155,7 @@ Cy_beta_w = -.0001*dihedral*57.3;	%%eqn. 7.2
 %%Start of Body Component %%pg 7.1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if wingloc == 0;
+if wingloc == 0
 	matrixa = [0 1];
 	matrixb = [0 1.5];
 	K_i = interlim1(matrixa,matrixb,fig7_1_xaxis);

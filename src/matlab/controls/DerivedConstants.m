@@ -30,7 +30,9 @@
 %         Second Printing, 1990.
 %
 
-AR_v = b_h^2/S_v;                 % Aspect Ratio of Horizontal Tail
+AR_v = b_v^2/S_v;                 % Aspect Ratio of Horizontal Tail (NEED CHECK)
+
+
 AR_h = b_h^2/S_h;					    % Aspect Ratio of Horizontal Tail
 AR_w = b_w^2/S_w;                 % Aspect Ratio of Horizontal Tail
 B=sqrt(1-M^2*(cos(Lambda_c4))^2); % Compressibility correction factor
