@@ -61,19 +61,16 @@ function [output] = GeometryFunction(inputs)
 
     %% Fuselage wetted computations
     % need to be checked for source
-<<<<<<< HEAD
-     fr         = inputs.GeometryInputs.FinessRatio;       % fuselage finess ratio
+    fr         = inputs.GeometryInputs.FinessRatio;       % fuselage finess ratio
 
     Swetfus_chk = pi*df*lf*(1-2/fr)^(2/3)*(1+1/fr^2);      % wetted area of fuselage [ft^2] converted to [m^2]
     
     Swetfus     = inputs.GeometryInputs.Swetfus;              % wetted area of fuselage[m^]
-    
-=======
-    fr          = inputs.GeometryInputs.FinessRatio;       % fuselage finess ratio
+
+%     fr          = inputs.GeometryInputs.FinessRatio;       % fuselage finess ratio
 
     %Swetfus     = pi*df*lf*(1-2/fr)^(2/3)*(1+1/fr^2);      % wetted area of fuselage [ft^2] converted to [m^2]
-    Swetfus = 69.93; %[m^2] current model from openVSP
->>>>>>> main
+%     Swetfus = 69.93; %[m^2] current model from openVSP
     % --->(REQUIRE MODIFICATION) DEREK
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% Nacelle wetted computations
@@ -156,7 +153,6 @@ function [output] = GeometryFunction(inputs)
     output.MC_vt   = MC_vt;
     
     output.Swetfus_chk = Swetfus_chk;
-    
     output.Wt      = Wt;
 end
 
