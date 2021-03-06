@@ -63,8 +63,8 @@ D_nacel= inputs.GeometryInputs.D_nacel;        % Nacelle diameter [m]
 
 Swet = [Swetfus, Swetwing, Sweth, Swetv, Swetn]; % Assign vector storing selected wetted area [m^2]
 Q = [Q_fuse, Q_wing, Q_ht, Q_vt, Q_n];           % Assign vector storing selected interference factors
-% Char_L = [L_fuse, MC_wing, MC_ht, MC_vt, D_nacel];   % Assign characteristic lengths as vector [m]   % NEED CHECK NACELLE REF S
-Char_L = [L_fuse, MC_wing, MC_ht, MC_vt, L_nacel];     % Assign characteristic lengths as vector [m]   % NEED CHECK NACELLE REF S
+Char_L = [L_fuse, MC_wing, MC_ht, MC_vt, D_nacel];   % Assign characteristic lengths as vector [m]   % NEED CHECK NACELLE REF S
+% Char_L = [L_fuse, MC_wing, MC_ht, MC_vt, L_nacel];     % Assign characteristic lengths as vector [m]   % NEED CHECK NACELLE REF S
 Re_num = zeros(1,length(Char_L));           % Assign vector storing selected Reynolds numbers
 t2c = [t2c_w, t2c_ht, t2c_vt];              % Assign vector storing airfoil thickness-to-chord ratio (t2c_wing, t2c_horizontal tail, t2c_vertical tail)
 Sweep = [WingSweep, HtSweep, VtSweep];      % Assign vector storing airfoil sweep angle [deg] (wing sweep, horizontal tail sweep, vertical tail sweep)
