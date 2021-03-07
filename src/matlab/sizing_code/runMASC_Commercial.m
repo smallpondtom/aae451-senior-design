@@ -73,9 +73,13 @@ GeometryInputs.upsweep     = 5;       % Upsweep angle of tail [deg]
 GeometryInputs.TR_vt       = .9346;    % vertical tail taper ratio
 GeometryInputs.k           = imperial2metric(2.08e-5, 'ft');    % Skin roughness value [m]
 GeometryInputs.A_max       = imperial2metric((0.25*pi*(6.25^2)), 'ft^2');         % fuselage maximum cross sectional area [m^2]
-GeometryInputs.Q_fuse      = 1.4;     % Fuselage-Nacelle interference factor
-GeometryInputs.Q_wing      = 1.2;     % Wing-Nacelle interference factor
-GeometryInputs.Q_nacel     = 1.2;     % Nacelle-Wing interference factor 
+GeometryInputs.Q_fuse      = 1;       % Fuselage-Nacelle interference factor
+
+% GeometryInputs.Q_wing      = 1.2;     % Wing-Nacelle interference factor
+% NEED CHECK WITH PROFESSOR
+
+GeometryInputs.Q_wing      = 1.0;     % Wing-Nacelle interference factor
+GeometryInputs.Q_nacel     = 1.3;     % Nacelle-Wing interference factor 
 GeometryInputs.Q_ht        = 1.05;    % Horizontal tail interference factor
 GeometryInputs.Q_vt        = 1.05;    % Vertical tail interference factor 
 GeometryInputs.upsweep     = 5;       % Upsweep angle of tail [deg]
