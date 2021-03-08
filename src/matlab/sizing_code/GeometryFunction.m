@@ -113,8 +113,8 @@ function [output] = GeometryFunction(inputs)
 
     %Nonafterburning engines
     Le_actual = imperial2metric(10,'ft');		% GE-90 engine length   [ft] convert to [m]
-    De_actual = imperial2metric(4.5,'ft');		% GE-90 engine diameter [ft] convert to [m]
-    T_actual = imperial2metric(8500,'lb');		% GE-90 engine thrust @ takeoff [lb] convert to [kg]
+    De_actual = imperial2metric(4,'ft');		% GE-90 engine diameter [ft] convert to [m]
+    T_actual = imperial2metric(16000,'lb');		% GE-90 engine thrust @ takeoff [lb] convert to [kg]
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % <---(END)

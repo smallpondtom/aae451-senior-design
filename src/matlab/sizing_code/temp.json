@@ -1,36 +1,36 @@
 {
-	"Wfuel" : 70166.4,
+	"Wfuel" : 1638.12,
 	"inputs" : {
 		"MissionInputs" : {
-			"R" : 1.74458e+07,
-			"loiter_time" : 1800,
-			"pax" : 301
+			"R" : 2.4076e+06,
+			"loiter_time" : 2700,
+			"pax" : 6
 			},
 		"PerformanceInputs" : {
-			"TW" : 0.28,
-			"WS" : 693.305,
-			"V" : 246.933,
-			"Vlt" : 102.889,
-			"nmax" : 3,
+			"TW" : 1.2,
+			"WS" : 292.946,
+			"V" : 206.549,
+			"Vlt" : 152.275,
+			"nmax" : 1.5,
 			"hc" : 11582.4,
-			"hlt" : 1524,
+			"hlt" : 8839.2,
 			"cruiseSpeedOfSound" : 295.063,
-			"M" : 0.836883
+			"M" : 0.700018
 			},
 		"GeometryInputs" : {
-			"AR" : 8.7,
-			"WingSweep" : 31.6,
-			"HtSweep" : 35,
-			"VtSweep" : 40,
+			"AR" : 8.91,
+			"WingSweep" : 9.519,
+			"HtSweep" : 21,
+			"VtSweep" : 45,
 			"thick2chord" : 0.12,
-			"t2c_ht" : 0.1,
-			"t2c_vt" : 0.1,
-			"TR" : 0.3,
-			"FinessRatio" : 11,
+			"t2c_ht" : 0.14,
+			"t2c_vt" : 0.06,
+			"TR" : 0.33,
+			"FinessRatio" : 6.91,
 			"AR_ht" : 6.4,
 			"AR_vt" : 1.3,
-			"TR_ht" : 0.33,
-			"TR_vt" : 0.57,
+			"TR_ht" : 0.5,
+			"TR_vt" : 0.9346,
 			"k" : 6.33984e-06,
 			"A_max" : 2.85023,
 			"Q_fuse" : 1.4,
@@ -38,57 +38,85 @@
 			"Q_nacel" : 1.2,
 			"Q_ht" : 1.05,
 			"Q_vt" : 1.05,
-			"upsweep" : 5,
-			"L_nacel" : 4,
-			"D_nacel" : 1
+			"upsweep" : 0.0872665,
+			"L_nacel" : 3.3,
+			"D_nacel" : 1.3
 			},
 		"PayloadInputs" : {
-			"crewnum" : 4,
-			"paxweight" : 104.326,
-			"crewweight" : 90.7184,
-			"w_payload" : 31765
+			"crewnum" : 2,
+			"paxweight" : 122.47,
+			"crewweight" : 122.47,
+			"w_payload" : 979.759
 			},
 		"PropulsionInputs" : {
 			"num_eng" : 2,
-			"SFCc" : 0.000138889,
-			"SFCl" : 0.000111111
+			"SFCc" : 0.000194444,
+			"SFCl" : 0.000125
 			},
 		"AeroInputs" : {
-			"Clmax" : 1.6
+			"Clmax" : 2.1
 			},
 		"Sizing" : {
-			"Thrust" : 45210.9,
-			"TOGW_temp" : 161468,
-			"W0" : 161468
+			"Thrust" : 6222.76,
+			"TOGW_temp" : 5185.64,
+			"W0" : 5185.64
 			},
 		"LayoutOutput" : {
-			"df" : 6.096,
-			"lf" : 67.056,
-			"crew" : 10,
+			"df" : 1.8288,
+			"lf" : 12.637,
+			"crew" : 2,
 			"pilots" : 2,
-			"flcrew" : 8
+			"flcrew" : 0
 			},
 		"GeometryOutput" : {
-			"b" : 45.0132,
-			"MAC" : 5.67398,
-			"Sv" : 31.2675,
-			"Sh" : 43.7924,
-			"Sw" : 232.895,
-			"Swetfus" : 1132.68,
-			"Sweteng" : 163.14,
-			"Swetwing" : 474.967,
-			"Sweth" : 89.3365,
-			"Swetv" : 63.7858,
-			"Swetn" : 12.5664,
-			"Swet" : 1936.47,
-			"b_ht" : 16.7413,
-			"b_vt" : 6.37556,
-			"MC_ht" : 2.8371,
-			"MC_vt" : 5.02691
+			"b" : 12.5587,
+			"MAC" : 1.52874,
+			"Sv" : 3.51842,
+			"Sh" : 4.75875,
+			"Sw" : 17.7017,
+			"Swetfus" : 69.93,
+			"Sweteng" : 26.8159,
+			"Swetwing" : 36.1008,
+			"Sweth" : 9.70785,
+			"Swetv" : 7.17757,
+			"Swetn" : 13.4774,
+			"Swet" : 163.21,
+			"b_ht" : 5.5187,
+			"b_vt" : 2.13868,
+			"MC_ht" : 0.894233,
+			"MC_vt" : 1.64576
+			},
+		"Aero" : {
+			"V" : 152.275,
+			"h" : 8839.2,
+			"cruise" : {
+				"Cdo" : {
+					"Cdo" : 0.0359179,
+					"Cd_fuse" : 0.0143956,
+					"Cd_wing" : 0.0116481,
+					"Cd_ht" : 0.00308509,
+					"Cd_vt" : 0.00162237,
+					"Cd_nacel" : 0.0027737,
+					"Cd_misc" : 0.00239308
+					},
+				"e0" : 0.584356
+				},
+			"loiter" : {
+				"Cdo" : {
+					"Cdo" : 0.0343324,
+					"Cd_fuse" : 0.0138171,
+					"Cd_wing" : 0.0110531,
+					"Cd_ht" : 0.00292247,
+					"Cd_vt" : 0.00153984,
+					"Cd_nacel" : 0.00265295,
+					"Cd_misc" : 0.0023469
+					},
+				"e0" : 0.584356
+				}
 			}
 		},
 	"EmptyWeightOutput" : {
-		"fe" : 0.368718,
-		"We" : 59536
+		"fe" : 0.495167,
+		"We" : 2567.76
 		}
 	}

@@ -80,7 +80,7 @@ PropulsionInputs.SFCl    = 0.45 / 3600;     % Specific Fuel Consumption @ loiter
 %% PAYLOAD PARAMETERS
 PayloadInputs.crewnum    = 2;                                % number of crew members (pilots)
 PayloadInputs.paxweight  = imperial2metric(270,'lb');        % passenger weight (including luggage) [lbs] convert 2 [kg]
-PayloadInputs.crewweight = imperial2metric(240,'lb');        % crew member weight (including luggage) [lbs] convert 2 [kg]
+PayloadInputs.crewweight = imperial2metric(270,'lb');        % crew member weight (including luggage) [lbs] convert 2 [kg]
 
 paxweight  = PayloadInputs.paxweight.*MissionInputs.pax;      % weight of passengers (including luggage) [kg]
 crewweight = PayloadInputs.crewweight*PayloadInputs.crewnum;  % weight of each crew member [kg]
