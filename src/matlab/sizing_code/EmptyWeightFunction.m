@@ -31,14 +31,31 @@ function output = EmptyWeightFunction(inputs)
     % see file "wer_curve_fit.ipynb" in /src/python
     
     % Coefficients from the curve fit
-    a = -0.93406157;
-    b = 3;
-    c = -0.07269635;
-    d = 0.00401527;
-    e = -0.09722277;
-    f = 0.0290933;
-    g = -0.05112156;
-    
+    %original numbers
+%     a = -0.93406157;
+%     b = 3;
+%     c = -0.07269635;
+%     d = 0.00401527;
+%     e = -0.09722277;
+%     f = 0.0290933;
+%     g = -0.05112156;
+%     copy1
+%     a = 0.00812223;
+%     b = 2.99999975;
+%     c = -0.19810052;
+%     d = -0.05997703;
+%     e = 0.03556749;
+%     f = 0.12704642;
+%     g = -0.06972984;
+%     copy2
+    a = -0.49109324;
+    b = 2.99999998;
+    c = 0.28234368;
+    d = 0.47475339;
+    e = -0.04233889;
+    f = -0.18632609;
+    g = -0.6257303;
+
     % Empty weight fraction We / Wo
     output.fe = a + b*W_dg^c * AR^d * TW^e * WS^f * Vmax^g;  
     % Empty weight
