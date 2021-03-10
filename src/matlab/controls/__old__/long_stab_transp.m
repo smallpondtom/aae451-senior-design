@@ -8,9 +8,9 @@ function [xd]= transp(time,x,u)
     % Medium-sized transport aircraft, longitudinal dynamics.
     %
     S=2170.0; CBAR=17.5; MASS=5.0E3; IYY= 4.1E6;
-    TSTAT=6.0E4; DTDV =−38.0; ZE = 2.0; CDCLS= .042;
-    CLA = .085; CMA =−.022; CMDE =−.016; % per degree
-    CMQ =−16.0; CMADOT= −6.0; CLADOT= 0.0; % per radian
+    TSTAT=6.0E4; DTDV = -38.0; ZE = 2.0; CDCLS= .042;
+    CLA = .085; CMA = -.022; CMDE = -0.016; % per degree
+    CMQ =-16.0; CMADOT= -6.0; CLADOT= 0.0; % per radian
     RTOD = 57.29578; GD=32.17;
     THTL =u(1);
     ELEV =u(2);
@@ -25,15 +25,15 @@ function [xd]= transp(time,x,u)
     [MACH,QBAR]= ADC(VT,H);
     QS = QBAR*S;
     SALP= sin (x(2)); CALP= cos(x(2));
-    GAM = THETA − x(2); SGAM= sin (GAM); CGAM= cos(GAM);
+    GAM = THETA - x(2); SGAM= sin (GAM); CGAM= cos(GAM);
     if LAND == 0 % CLEAN
         CLO= .20; CDO= .016;
         CM0= .05; DCDG= 0.0; DCMG= 0.0;
     elseif LAND == 1 % LANDING FLAPS & GEAR
         CLO= 1.0; CDO= .08;
-        CMO= −.20; DCDG= .02; DCMG= −.05;
+        CMO= -0.20; DCDG= .02; DCMG= -0.05;
     else
-        disp(‘Landing Gear & Flaps ?’)
+        disp('Landing Gear & Flaps ?')
     end
     THR= (TSTAT+VT*DTDV) * max(THTL,0); % THRUST
     CL=CLO+CLA*ALPHA; % NONDIM. LIFT

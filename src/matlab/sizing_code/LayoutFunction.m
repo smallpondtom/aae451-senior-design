@@ -14,11 +14,17 @@ function output = LayoutFunction(inputs)
     %% Aircraft fuselage dimensions & flight crew 
 
     % Fuselage Finess Ratio, lambda_fd
-    lambda_f =inputs.GeometryInputs.FinessRatio;     % fuselage finess ratio
+    lambda_f =inputs.GeometryInputs.FinessRatio;    % fuselage finess ratio
 
     % diameter of fuselage [ft] -> [m]
+<<<<<<< HEAD
     df = imperial2metric(6,'ft');                  % aircraft fuselage diameter [ft] convert to [m]
 
+=======
+    % df = imperial2metric(20,'ft');                % aircraft fuselage diameter [ft] convert to [m]
+    df = inputs.GeometryInputs.df;                % aircraft fuselage diameter [ft] convert to [m]
+      
+>>>>>>> main
     % length of fuselage [ft] -> [m]  
     lf = lambda_f*df;								% aircraft fuselage length [ft] convert to [m]
 
