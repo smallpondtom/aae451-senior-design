@@ -213,3 +213,4 @@ cython_debug/
 # Matlab extension only allows .m exclude .mlx
 *.mlx
 *.asv
+*.slx.autosave
