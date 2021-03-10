@@ -2,10 +2,10 @@
 
 function [] = ReportFunction(inputs)
 
-    fprintf('%s%6.0f%s \n','Takeoff Gross Weight:  ',inputs.TOGW,' lbs')
-    fprintf('%s%6.0f%s \n','Fuel Weight:           ',inputs.Wfuel,' lbs')
-    fprintf('%s%6.0f%s \n','Payload Weight:        ',inputs.PayloadInputs.w_payload,' lbs')
-    fprintf('%s%6.0f%s \n','Empty Weight:          ',inputs.EmptyWeight.We,' lbs')
+    fprintf('%s%6.0f%s \n','Takeoff Gross Weight:  ',inputs.TOGW,' kg')
+    fprintf('%s%6.0f%s \n','Fuel Weight:           ',inputs.Wfuel,' kg')
+    fprintf('%s%6.0f%s \n','Payload Weight:        ',inputs.PayloadInputs.w_payload,' kg')
+    fprintf('%s%6.0f%s \n','Empty Weight:          ',inputs.EmptyWeight.We,' kg')
     fprintf('%s%6.4f%s \n','Empty Weight Fraction: ',inputs.EmptyWeight.We/inputs.TOGW,' ')
     fprintf('%s%6.4f%s \n','Fuel Weight Fraction:  ',inputs.Wfuel/inputs.TOGW,' ')
     fprintf('%s \n','------------------------------------          ')

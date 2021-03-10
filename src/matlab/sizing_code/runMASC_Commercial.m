@@ -62,7 +62,7 @@ GeometryInputs.AR_vt       = 0.909;     % vertical tail aspect ratio
 GeometryInputs.TR_ht       = 0.5;    % horizontal tail taper ratio
 GeometryInputs.TR_vt       = 0.9346;    % vertical tail taper ratio CLOSE VALUE
 GeometryInputs.k           = imperial2metric(2.08e-5, 'ft');    % Skin roughness value [m] (Assume smooth paint)
-GeometryInputs.A_max       = imperial2metric((0.25*pi*(6.25^2)), 'ft^2');         % fuselage maximum cross sectional area [m^2]
+GeometryInputs.A_max       = imperial2metric((0.25*pi*(6^2)), 'ft^2');         % fuselage maximum cross sectional area [m^2]
 % GeometryInputs.A_max       = pi;    % fuselage maximum cross sectional area [m^2]
 GeometryInputs.Q_fuse      = 1;     % Fuselage-Nacelle interference factor
 GeometryInputs.Q_wing      = 1.3;     % Wing-Nacelle interference factor
@@ -72,8 +72,6 @@ GeometryInputs.Q_vt        = 1.04;    % Vertical tail interference factor
 GeometryInputs.upsweep     = 5;       % Upsweep angle of tail [deg]
 GeometryInputs.TR_vt       = .9346;    % vertical tail taper ratio
 GeometryInputs.k           = imperial2metric(2.08e-5, 'ft');    % Skin roughness value [m]
-GeometryInputs.A_max       = imperial2metric((0.25*pi*(6.25^2)), 'ft^2');         % fuselage maximum cross sectional area [m^2]
-GeometryInputs.Q_fuse      = 1;       % Fuselage-Nacelle interference factor
 
 % GeometryInputs.Q_wing      = 1.2;     % Wing-Nacelle interference factor
 % NEED CHECK WITH PROFESSOR
@@ -94,14 +92,14 @@ AeroInputs.Clmax   = 2.1;                % maximum lift coefficient
 
 %% PROPULSION PARAMETERS
 PropulsionInputs.num_eng = 2;               % number of engines
-PropulsionInputs.SFCc    = 0.4 / 3600;     % Specific Fuel Consumption @ cruise [1/hr] convert to [1/s]
-PropulsionInputs.SFCl    = 0.4 / 3600;     % Specific Fuel Consumption @ loiter [1/hr] convert to [1/s]
+PropulsionInputs.SFCc    = 0.7 / 3600;     % Specific Fuel Consumption @ cruise [1/hr] convert to [1/s]
+PropulsionInputs.SFCl    = 0.45 / 3600;     % Specific Fuel Consumption @ loiter [1/hr] convert to [1/s]
 % PropulsionInputs.BPR    = 5.5;               % Engine-Bypass Ratio
 
 %% PAYLOAD PARAMETERS
 PayloadInputs.crewnum    = 2;                                % number of crew members (pilots)
 PayloadInputs.paxweight  = imperial2metric(270,'lb');        % passenger weight (including luggage) [lbs] convert 2 [kg]
-PayloadInputs.crewweight = imperial2metric(240,'lb');        % crew member weight (including luggage) [lbs] convert 2 [kg]
+PayloadInputs.crewweight = imperial2metric(270,'lb');        % crew member weight (including luggage) [lbs] convert 2 [kg]
 
 paxweight  = PayloadInputs.paxweight.*MissionInputs.pax;      % weight of passengers (including luggage) [kg]
 crewweight = PayloadInputs.crewweight*PayloadInputs.crewnum;  % weight of each crew member [kg]

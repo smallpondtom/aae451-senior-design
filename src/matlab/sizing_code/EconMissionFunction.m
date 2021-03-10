@@ -19,7 +19,7 @@ function output = EconMissionFunction(inputs)
 inputs.MissionInputs.R = inputs.EconMission.range;
 
 %% Start Aircraft Sizing Iterations
-TOGW_temp = 911000;      % guess of takeoff gross weight [lbs] 
+TOGW_temp = 11000;      % guess of takeoff gross weight [lbs] 
 tolerance = 0.001;       % sizing tolerance
 diff      = tolerance+1; % initial tolerance gap
 
