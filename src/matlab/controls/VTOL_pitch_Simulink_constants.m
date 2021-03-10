@@ -16,11 +16,8 @@ else
     d = (rcp * dcp + rhp * dhp) / 2;  
 end
 Jyy = 1; 
-V_wind = 1; 
+V_wind = 0;  % VTOL stationary 
 d_threshold = 1; % turn on/off disturbance 
-threshold = -1;  % switch between impulse disturbance and wind disturbance
-                 % negative value = wind disturbance
-                 % positive value = impulse disturbance
 n_threshold = 1; % turn on/off noise 
 
 % Tuned values for no noise or diturbance considered 
