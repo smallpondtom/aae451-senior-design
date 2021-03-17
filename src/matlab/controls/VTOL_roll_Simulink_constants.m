@@ -11,13 +11,13 @@ Ixx = T.IoxG_kgxm2_(8);
 Iyy = T.IoyG_kgxm2_(8);
 Izz = T.IozG_kgxm2_(8);
 
-tau = 5;  % time constant 
+tau = 1/2;  % time constant reciprocal
 Fmax = 71.22e3;  % max thrust
 l = 3.68;  % long axis to engine duct 
 Jxx = Iyy + Izz;  % polar moment of inertia Iyy + Izz
 
-f = 4.094915062380423;  % max freq
-Ad = 1.156199403930316;  % max amp
+f = 0.6250551925273969;  % max freq
+Ad = 1.1968251487024621;  % max amp
 
 d_threshold = 1; % turn on/off disturbance 
 n_threshold = 1; % turn on/off noise 

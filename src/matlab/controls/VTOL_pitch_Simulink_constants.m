@@ -11,7 +11,7 @@ Ixx = T.IoxG_kgxm2_(8);
 Iyy = T.IoyG_kgxm2_(8);
 Izz = T.IozG_kgxm2_(8);
 
-tau = 5; 
+tau = 1/2; 
 Fmax = 71.22e3; 
 % Airflow ratio
 rcp = 0.5;
@@ -27,8 +27,8 @@ else
 end
 Jyy = Ixx + Izz; 
 
-f = 4.941713361323833;  % max freq
-Ad = 1.1748735110715574;  % max amp
+f = 0.517947467923121;  % max freq
+Ad = 1.175699206758237;  % max amp
 
 d_threshold = 1; % turn on/off disturbance 
 n_threshold = 1; % turn on/off noise 

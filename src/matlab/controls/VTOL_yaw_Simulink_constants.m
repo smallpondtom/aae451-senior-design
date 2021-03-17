@@ -11,7 +11,7 @@ Ixx = T.IoxG_kgxm2_(8);
 Iyy = T.IoyG_kgxm2_(8);
 Izz = T.IozG_kgxm2_(8);
 
-tau_p = 2;  % motor time constant
+tau_p = 1/2;  % motor time constant
 theta_max = 120 / 180 * pi; 
 l = 3.68;  % long axis to engine duct  
 F = 71.22e3;  % max thrust
@@ -31,12 +31,12 @@ n_threshold = 1; % turn on/off noise
 % where Tf = 1 / N 
 
 %Plotting and saving 
-sim = sim("vtol_yaw.slx");
-t = sim.tout;
-res = sim.res.signals.values;
-fig = figure("Renderer", "painters", "Position", [60 60 900 700]);
-    plot(t, res)
-    grid on; grid minor; box on; 
-    ylabel("yaw angle")
-    xlabel("t")
-saveas(fig, "yaw_resp.png");
+% sim = sim("vtol_yaw.slx");
+% t = sim.tout;
+% res = sim.res.signals.values;
+% fig = figure("Renderer", "painters", "Position", [60 60 900 700]);
+%     plot(t, res)
+%     grid on; grid minor; box on; 
+%     ylabel("yaw angle")
+%     xlabel("t")
+% saveas(fig, "yaw_resp.png");
