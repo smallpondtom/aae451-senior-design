@@ -42,7 +42,9 @@ PerformanceInputs.M    = ...
     PerformanceInputs.V / PerformanceInputs.cruiseSpeedOfSound;  % cruise velocity [Mach]. 
 
 %% GEOMETRY PARAMETERS
+
 GeometryInputs.df          = 2;       % Fuselage Diameter [m]
+
 GeometryInputs.AR          = 8.989;     % wing aspect ratio
 GeometryInputs.WingSweep   = 9.519;    % wing sweep, Lambda (LE) [deg]
 GeometryInputs.HtSweep     = 21.34;      % horizontal tail sweep angle [deg]
@@ -53,6 +55,9 @@ GeometryInputs.t2c_vt      = 0.1;     % vertical tail thickness-to-chord ratio
 GeometryInputs.TR          = 0.33;     % wing taper ratio
 GeometryInputs.FinessRatio = 7;      % fuselage finess ratio
 
+GeometryInputs.AR_ht       = 6.4;     % horizontal tail aspect ratio
+
+
 GeometryInputs.Swetfus     = 69.93;    % Fuselage wetted area [m^2]
 
 GeometryInputs.AR_ht       = 6.4;     % horizontal tail aspect ratio
@@ -62,20 +67,17 @@ GeometryInputs.AR_vt       = 0.909;     % vertical tail aspect ratio
 GeometryInputs.TR_ht       = 0.5;    % horizontal tail taper ratio
 GeometryInputs.TR_vt       = 0.9346;    % vertical tail taper ratio CLOSE VALUE
 GeometryInputs.k           = imperial2metric(2.08e-5, 'ft');    % Skin roughness value [m] (Assume smooth paint)
-GeometryInputs.A_max       = imperial2metric((0.25*pi*(6^2)), 'ft^2');         % fuselage maximum cross sectional area [m^2]
 % GeometryInputs.A_max       = pi;    % fuselage maximum cross sectional area [m^2]
-GeometryInputs.Q_fuse      = 1;     % Fuselage-Nacelle interference factor
-GeometryInputs.Q_wing      = 1.3;     % Wing-Nacelle interference factor
-GeometryInputs.Q_nacel     = 1.3;       % Nacelle-Wing interference factor 
 GeometryInputs.Q_ht        = 1.04;    % Horizontal tail interference factor
 GeometryInputs.Q_vt        = 1.04;    % Vertical tail interference factor 
 GeometryInputs.upsweep     = 5;       % Upsweep angle of tail [deg]
 GeometryInputs.TR_vt       = .9346;    % vertical tail taper ratio
 GeometryInputs.k           = imperial2metric(2.08e-5, 'ft');    % Skin roughness value [m]
+GeometryInputs.A_max       = imperial2metric((0.25*pi*(6^2)), 'ft^2');         % fuselage maximum cross sectional area [m^2]
+GeometryInputs.Q_fuse      = 1;       % Fuselage-Nacelle interference factor
 
 % GeometryInputs.Q_wing      = 1.2;     % Wing-Nacelle interference factor
 % NEED CHECK WITH PROFESSOR
-
 GeometryInputs.Q_wing      = 1.0;     % Wing-Nacelle interference factor
 GeometryInputs.Q_nacel     = 1.3;     % Nacelle-Wing interference factor 
 GeometryInputs.Q_ht        = 1.05;    % Horizontal tail interference factor
