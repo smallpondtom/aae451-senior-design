@@ -214,3 +214,5 @@ cython_debug/
 *.mlx
 *.asv
 *.slx.autosave
+
+*.json
