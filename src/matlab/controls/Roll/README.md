@@ -1306,7 +1306,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 ```
 
 
-![](HRC_code_images/)
+![figure_10.png](HRC_code_images/figure_10.png)
 
 ### Simulate with disturbance
 
@@ -1353,7 +1353,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
 ```
 
 
-![](HRC_code_images/)
+![figure_11.png](HRC_code_images/figure_11.png)
 
 
 ```matlab:Code
@@ -1389,7 +1389,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 ```
 
 
-![](HRC_code_images/)
+![figure_12.png](HRC_code_images/figure_12.png)
 
 ## Nonlinear Model
 ### Simulate without disturbance 
@@ -1438,7 +1438,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
 ```
 
 
-![](HRC_code_images/)
+![figure_13.png](HRC_code_images/figure_13.png)
 
 
 ```matlab:Code
@@ -1474,7 +1474,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 ```
 
 
-![](HRC_code_images/)
+![figure_14.png](HRC_code_images/figure_14.png)
 
 ### Simulate with disturbance
 
@@ -1519,7 +1519,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
 ```
 
 
-![](HRC_code_images/)
+![figure_15.png](HRC_code_images/figure_15.png)
 
 
 ```matlab:Code
@@ -1555,7 +1555,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 ```
 
 
-![](HRC_code_images/)
+![figure_16.png](HRC_code_images/figure_16.png)
 
 # References
 
