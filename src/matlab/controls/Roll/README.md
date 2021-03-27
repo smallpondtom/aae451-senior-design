@@ -1554,8 +1554,29 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 ```
 
-
 ![figure_16.png](HRC_code_images/figure_16.png)
+
+# Simulink Models
+
+## Linear Model
+
+![model1.png](HRC_code_images/model1.png)
+
+## Nonlinear Model
+
+![model2.png](HRC_code_images/model2.png)
+
+## Nonlinear Dynamics Model
+
+![model3.png](HRC_code_images/model3.png)
+
+## Disturbance Model
+
+![model4.png](HRC_code_images/model4.png)
+
+## Noise Model
+
+![model5.png](HRC_code_images/model5.png)
 
 # References
 
