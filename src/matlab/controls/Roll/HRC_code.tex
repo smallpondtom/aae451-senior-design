@@ -316,18 +316,6 @@ A = [0 0 0 1 0 0;
 
 eig(A);
 \end{matlabcode}
-\begin{matlabsymbolicoutput}
-ans = 
-
-\hskip1em $\displaystyle \left(\begin{array}{c}
-0\\
-0\\
-0\\
--\frac{0.5000\,{\left(c_z -\sqrt{{c_z }^2 -4\,k\,m}\right)}}{m}\\
--\frac{c_y }{m}\\
--\frac{0.5000\,{\left(c_z +\sqrt{{c_z }^2 -4\,k\,m}\right)}}{m}
-\end{array}\right)$
-\end{matlabsymbolicoutput}
 
 
 
@@ -402,18 +390,6 @@ A = [0 0 0 1 0 0;
 
 eig(A);
 \end{matlabcode}
-\begin{matlabsymbolicoutput}
-ans = 
-
-\hskip1em $\displaystyle \left(\begin{array}{c}
-0\\
-0\\
--\frac{0.5000\,{\left(c_z -\sqrt{{c_z }^2 -4\,k\,m}\right)}}{m}\\
--\frac{c_{\phi } }{J_{x,x} }\\
--\frac{c_y }{m}\\
--\frac{0.5000\,{\left(c_z +\sqrt{{c_z }^2 -4\,k\,m}\right)}}{m}
-\end{array}\right)$
-\end{matlabsymbolicoutput}
 
 
 \begin{par}
@@ -508,8 +484,8 @@ clear all; close all; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  RUN THIS! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Read all the data necessary
 
-addpath("../../../parameters/");
-addpath("../sizing_code/");
+addpath("..\..\..\..\parameters\");
+addpath("..\..\sizing_code\");
 
 % Load the excel sheet in the parameters folder to obtain constants 
 T1 = readtable("catiaMeas.xlsx","Sheet","OGWingPosition");
@@ -909,7 +885,7 @@ bode(loops.Si,'r',loops.Ti,'b',loops.Li,'g')
 legend('Sensitivity','Complementary Sensitivity','Loop Transfer')
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{92.92523833416959em}]{figure_0.png}
+\includegraphics[width=\maxwidth{92.9569281960546em}]{figure_0.eps}
 \end{center}
 
 
@@ -985,6 +961,7 @@ sys = ss(A, B, C, D);
 % Q = diag([160 120 230 130 150 160]);
 Q = diag([160 469 230 140 620 220]);   % current
 % Q = diag([210 150 230 170 180 130]);
+% Q = diag([160 600 230 140 700 220]);
 R = diag([1/Tmax/10 1/Tmax/10]);
 Klqr = lqr(sys.A, sys.B, Q, R);
 \end{matlabcode}
@@ -1078,11 +1055,11 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust without Disturbances for Linear Kinematics Model';
+    title_string = 'Thrust Perturbation without Disturbances for Linear Kinematics Model';
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_1.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_1.eps}
 \end{center}
 
 
@@ -1118,7 +1095,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_2.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_2.eps}
 \end{center}
 
 
@@ -1132,6 +1109,10 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 \begin{matlabcode}
 noise_on = 1;  % turn on/off noise
 disturbance_on = 1;  % turn on/off disturbance
+\end{matlabcode}
+
+
+\begin{matlabcode}
 simout = sim("vtol_roll_kin_lin.slx");  % Run simulation 
 \end{matlabcode}
 
@@ -1162,11 +1143,11 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust with Disturbances for Linear Kinematics Model';
+    title_string = 'Thrust Perturbation with Disturbances for Linear Kinematics Model';
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_3.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_3.eps}
 \end{center}
 
 
@@ -1202,7 +1183,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_4.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_4.eps}
 \end{center}
 
 
@@ -1250,11 +1231,11 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust without Disturbances for Nonlinear Kinematics Model';
+    title_string = 'Control Thrust without Disturbances for Nonlinear Kinematics Model';
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_5.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_5.eps}
 \end{center}
 
 
@@ -1290,7 +1271,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_6.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_6.eps}
 \end{center}
 
 
@@ -1334,11 +1315,11 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust with Disturbances for Nonlinear Kinematics Model';
+    title_string = 'Control Thrust with Disturbances for Nonlinear Kinematics Model';
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_7.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_7.eps}
 \end{center}
 
 
@@ -1374,7 +1355,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_8.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_8.eps}
 \end{center}
 
 
@@ -1574,11 +1555,11 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Required Control Thrust without Disturbances for Linear Model';
+    title_string = 'Thrust Perturbation without Disturbances for Linear Model';
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_9.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_9.eps}
 \end{center}
 
 
@@ -1614,7 +1595,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_10.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_10.eps}
 \end{center}
 
 
@@ -1660,11 +1641,11 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Required Control Thrust with Disturbances for Linear Model';
+    title_string = 'Thrust Perturbation with Disturbances for Linear Model';
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_11.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_11.eps}
 \end{center}
 
 
@@ -1700,7 +1681,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_12.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_12.eps}
 \end{center}
 
 
@@ -1754,7 +1735,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_13.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_13.eps}
 \end{center}
 
 
@@ -1790,7 +1771,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_14.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_14.eps}
 \end{center}
 
 
@@ -1838,7 +1819,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_15.png}
+\includegraphics[width=\maxwidth{90.31610637230307em}]{figure_15.eps}
 \end{center}
 
 
@@ -1874,8 +1855,60 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     sgtitle(title_string)
 \end{matlabcode}
 \begin{center}
-\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_16.png}
+\includegraphics[width=\maxwidth{75.26342197691922em}]{figure_16.eps}
 \end{center}
+
+
+\label{H_6C96B524}
+\matlabheading{Simulink Models}
+
+\label{H_419CCEC9}
+\matlabheadingtwo{Linear Model}
+
+\begin{par}
+\begin{flushleft}
+\includegraphics[width=\maxwidth{80.18063221274461em}]{image_2}
+\end{flushleft}
+\end{par}
+
+\label{H_2BDB2772}
+\matlabheadingtwo{Nonlinear Model}
+
+\label{H_BD160DC8}
+\vspace{1em}
+
+\label{H_799A5B87}
+\matlabheading{\includegraphics[width=\maxwidth{80.28098344204717em}]{image_3}}
+
+\label{H_01DD1E06}
+\vspace{1em}
+
+\label{H_97AEE438}
+\matlabheadingtwo{Dynamical System}
+
+\begin{par}
+\begin{flushleft}
+\includegraphics[width=\maxwidth{80.28098344204717em}]{image_4}
+\end{flushleft}
+\end{par}
+
+\label{H_BCE76013}
+\matlabheadingtwo{Wind Gust Disturbance Model}
+
+\begin{par}
+\begin{flushleft}
+\includegraphics[width=\maxwidth{80.28098344204717em}]{image_5}
+\end{flushleft}
+\end{par}
+
+\label{H_BCCC39D5}
+\matlabheadingtwo{White Noise Model}
+
+\begin{par}
+\begin{flushleft}
+\includegraphics[width=\maxwidth{80.28098344204717em}]{image_6}
+\end{flushleft}
+\end{par}
 
 \label{H_7FF5112B}
 \matlabheading{References}
