@@ -197,9 +197,6 @@ A = [0 0 0 1 0 0;
 eig(A);
 ```
 
-ans = 
-
-   <img src="https://latex.codecogs.com/gif.latex?&space;\left(\begin{array}{c}&space;0\\&space;0\\&space;0\\&space;-\frac{0.5000\,{\left(c_z&space;-\sqrt{{c_z&space;}^2&space;-4\,k\,m}\right)}}{m}\\&space;-\frac{c_y&space;}{m}\\&space;-\frac{0.5000\,{\left(c_z&space;+\sqrt{{c_z&space;}^2&space;-4\,k\,m}\right)}}{m}&space;\end{array}\right)"/>
   
 
 <img src="https://latex.codecogs.com/gif.latex?\textrm{eig}\left(A\right)=\;"/>$$\left(\begin{array}{c}
@@ -253,9 +250,6 @@ A = [0 0 0 1 0 0;
 eig(A);
 ```
 
-ans = 
-
-   <img src="https://latex.codecogs.com/gif.latex?&space;\left(\begin{array}{c}&space;0\\&space;0\\&space;-\frac{0.5000\,{\left(c_z&space;-\sqrt{{c_z&space;}^2&space;-4\,k\,m}\right)}}{m}\\&space;-\frac{c_{\phi&space;}&space;}{J_{x,x}&space;}\\&space;-\frac{c_y&space;}{m}\\&space;-\frac{0.5000\,{\left(c_z&space;+\sqrt{{c_z&space;}^2&space;-4\,k\,m}\right)}}{m}&space;\end{array}\right)"/>
 
 
 The eigenvalues are 
@@ -331,8 +325,8 @@ clear all; close all; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  RUN THIS! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Read all the data necessary
 
-addpath("../../../parameters/");
-addpath("../sizing_code/");
+addpath("..\..\..\..\parameters\");
+addpath("..\..\sizing_code\");
 
 % Load the excel sheet in the parameters folder to obtain constants 
 T1 = readtable("catiaMeas.xlsx","Sheet","OGWingPosition");
@@ -711,6 +705,7 @@ sys = ss(A, B, C, D);
 % Q = diag([160 120 230 130 150 160]);
 Q = diag([160 469 230 140 620 220]);   % current
 % Q = diag([210 150 230 170 180 130]);
+% Q = diag([160 600 230 140 700 220]);
 R = diag([1/Tmax/10 1/Tmax/10]);
 Klqr = lqr(sys.A, sys.B, Q, R);
 ```
@@ -795,7 +790,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust without Disturbances for Linear Kinematics Model';
+    title_string = 'Thrust Perturbation without Disturbances for Linear Kinematics Model';
     sgtitle(title_string)
 ```
 
@@ -846,6 +841,10 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 ```matlab:Code
 noise_on = 1;  % turn on/off noise
 disturbance_on = 1;  % turn on/off disturbance
+```
+
+
+```matlab:Code
 simout = sim("vtol_roll_kin_lin.slx");  % Run simulation 
 ```
 
@@ -876,7 +875,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust with Disturbances for Linear Kinematics Model';
+    title_string = 'Thrust Perturbation with Disturbances for Linear Kinematics Model';
     sgtitle(title_string)
 ```
 
@@ -959,7 +958,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust without Disturbances for Nonlinear Kinematics Model';
+    title_string = 'Control Thrust without Disturbances for Nonlinear Kinematics Model';
     sgtitle(title_string)
 ```
 
@@ -1040,7 +1039,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Negative Feedback Thrust with Disturbances for Nonlinear Kinematics Model';
+    title_string = 'Control Thrust with Disturbances for Nonlinear Kinematics Model';
     sgtitle(title_string)
 ```
 
@@ -1265,7 +1264,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Required Control Thrust without Disturbances for Linear Model';
+    title_string = 'Thrust Perturbation without Disturbances for Linear Model';
     sgtitle(title_string)
 ```
 
@@ -1308,6 +1307,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
 
 ![figure_10.png](HRC_code_images/figure_10.png)
 
+
 ### Simulate with disturbance
 
 \hfill \break
@@ -1348,7 +1348,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Required Control Thrust with Disturbances for Linear Model';
+    title_string = 'Thrust Perturbation with Disturbances for Linear Model';
     sgtitle(title_string)
 ```
 
@@ -1423,7 +1423,7 @@ res.Doff.phidot = simout.xstates.signals.values(:,6);  % phidot values
 
 ```matlab:Code
 % Plot Thrust
-fig = figure("Renderer","painters","Position",[60 60 900 800]);
+fig = figure("Renderer","painters","Position",[60 60 960 860]);
     subplot(2,1,1)
     plot(t, res.Doff.Fl)
     grid on; grid minor; box on;
@@ -1443,7 +1443,7 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
 
 ```matlab:Code
 % Plot Thrust
-fig = figure("Renderer","painters","Position",[60 60 900 960]);
+fig = figure("Renderer","painters","Position",[60 60 960 1020]);
     subplot(6,1,1)
     plot(t, res.Doff.y)
     grid on; grid minor; box on;
@@ -1509,13 +1509,13 @@ fig = figure("Renderer","painters","Position",[60 60 900 800]);
     plot(t, res.Don.Fl)
     grid on; grid minor; box on;
     ylabel('Left Engine Thrust [N]')
+    title_string = 'Required Control Thrust with Disturbances for Nonlinear Model';
+    title(title_string)
     subplot(2,1,2)
     plot(t, res.Don.Fr)
     grid on; grid minor; box on;
     ylabel('Right Engine Thrust [N]')
     xlabel('time [sec]')
-    title_string = 'Required Control Thrust with Disturbances for Nonlinear Model';
-    sgtitle(title_string)
 ```
 
 
@@ -1529,6 +1529,8 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     plot(t, res.Don.y)
     grid on; grid minor; box on;
     ylabel('y position of CG [m]')
+    title_string = 'Roll Control Simulation with Disturbances for Nonlinear model';
+    title(title_string)
     subplot(6,1,2)
     plot(t, res.Don.z)
     grid on; grid minor; box on;
@@ -1550,33 +1552,44 @@ fig = figure("Renderer","painters","Position",[60 60 900 960]);
     grid on; grid minor; box on;
     ylabel('$\dot{\phi}$ [rad/s]')
     xlabel('time [sec]')
-    title_string = 'Roll Control Simulation with Disturbances for Nonlinear model';
-    sgtitle(title_string)
 ```
+
 
 ![figure_16.png](HRC_code_images/figure_16.png)
 
-# Simulink Models
 
+```matlab:Code
+    
+```
+
+# Simulink Models
 ## Linear Model
 
-![model1.png](HRC_code_images/model1.png)
+
+![image_2.png](HRC_code_images/image_2.png)
+
 
 ## Nonlinear Model
+  
+\matlabheading{![image_3.png](HRC_code_images/image_3.png)}
+  
+## Dynamical System
 
-![model2.png](HRC_code_images/model2.png)
 
-## Nonlinear Dynamics Model
+![image_4.png](HRC_code_images/image_4.png)
 
-![model3.png](HRC_code_images/model3.png)
 
-## Disturbance Model
+## Wind Gust Disturbance Model
 
-![model4.png](HRC_code_images/model4.png)
 
-## Noise Model
+![image_5.png](HRC_code_images/image_5.png)
 
-![model5.png](HRC_code_images/model5.png)
+
+## White Noise Model
+
+
+![image_6.png](HRC_code_images/image_6.png)
+
 
 # References
 
